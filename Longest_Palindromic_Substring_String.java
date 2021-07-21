@@ -1,4 +1,10 @@
 // COMPLEXITY is O(n^2)
+// 2 cases need to be consider even and odd..
+
+// for even low = i-1 ; high = i;
+// 	abba  => find bb first then traverse start.....
+// for odd low = i-1 ; high = i=1;
+// 	ababa  => find b_(a)_b first then traverse start.....
 
 public class Main
 {   
