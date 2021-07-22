@@ -1,0 +1,56 @@
+Input  : str = "ABC"
+Output : 2
+We can make above string palindrome as "CBABC"
+by adding 'B' and 'C' at front.
+
+Input  : str = "AACECAAAA";
+Output : 2
+We can make above string palindrome as AAAACECAAAA
+by adding two A's at front of string.
+
+
+----------------------------------------------------------------
+Below implementation takes O(n^2).  
+remove one char from last and check is palidrome or not...
+the number of remove char is the number of element need to be added in front.
+
+public class Main
+{
+    public static boolean ispalindrome(String s){
+        int n = s.length();
+        int i,j;
+        for(i=0,j=n-1;i<j;i++,j--){
+            if(s.charAt(i)!=s.charAt(j)){
+                return false;
+            }
+        }
+        return true;
+    }
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		String s = "BABABAA";
+        int cnt = 0;
+        int flag = 0;
+ 
+        while (s.length() > 0) {
+            if (ispalindrome(s)) {
+                flag = 1;
+                break;
+            } else {
+                cnt++;
+                s = s.substring(0, s.length() - 1);
+            }
+        }
+ 
+        // print the number of insertion at front
+        if (flag == 1) {
+            System.out.println(cnt);
+        }
+	}
+}
+
+---------------------------------------------------------
+
+
+
+
