@@ -1,3 +1,9 @@
+/*
+3 Condition 
+a[mid] < k :
+a[mid] > k :
+a[mid] == k : logic vode here
+*/
 public class Main
 {
 	public static void main(String[] args) {
