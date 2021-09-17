@@ -14,7 +14,7 @@ public class Main
             }else if(sum < target){
                 start++;
             }else{
-                end++;
+                end--;
             }
         }
     }
