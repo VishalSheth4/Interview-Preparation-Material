@@ -1,0 +1,254 @@
+
+
+
+TAXONOMY of REST API
+
+REST - Representational State Transfer
+API - Application Programming Interface
+
+how REST APIs are implemented over HTTPS ?
+GET
+DELETE
+PUT
+POST
+PATCH
+
+Representation
+Representational State
+Resource
+Headers
+Request and Response
+Request Payload
+Status Code
+
+
+URI : https://mystoreapp/customer/2
+
+Domain(DNS) : mystoreapp 
+
+https://mystoreapp/customer/2/order 
+--> All the order of customer 2.
+
+Path Parameter : 2
+-- Variable in a URI path that hepls in pointing towards
+specific resource.
+ 
+
+https://mystoreapp/customers?name=abc 
+Query Parameter : variable in a URI path that queries/filters through a list of resources.
+
+
+GET - Read Information
+
+Request Paylaod : 
+{
+	"city" : "Dubai",
+	"country" : "UAE"
+}
+
+Response Body
+{
+	"id":"1",
+	"updated":"true"
+
+}
+
+Response Codes :
+
+2xx - SUCCESS
+3xx - Re-direction and Others
+4xx - Problem on Client Side
+5xx - Problem on Server Side
+
+HTTP HEADERS  - metadata of the request
+
+{
+	content-encoding
+	content-language
+	content-length
+	content-type
+}
+
+-----------------------------------------------
+POST : 
+In order to create the resources , trigger some operation
+
+http://localhost:8080/mystoreapp/customer : URI
+
+
+REQUEST_PAYLOAD / REQUEST PAYLOAD
+{
+	"name" : "Vishal sheth",
+	"City" : "Bangalore",
+	"age" : 26
+}
+
+
+RESPONSE_BODY
+{
+	"err" : ""
+	"code":201    // resource has beene created
+	"id" : 1
+}
+
+-----------------
+To trigger operation 
+
+http://localhost:8080/mystoreapp/customer/process
+
+{
+	"name":"Vishal",
+	"age":26
+}
+
+NO RESPONSE 
+
+status : 204  // no content
+
+------------------
+
+201 : resource has been created (resource id returned)
+200 : Resource has been created (details of resource returned)
+204 : Resource processed succesfully with no content returned
+
+In response body there is some data is wrong.
+
+400 : bad request | Fault with the client
+409 : Conflict | duplicate resource
+Post is not idempotent
+
+Idempotent means : Making multiple identical request has the same effect as making a single request.
+
+NOTE : In post first time will give success status but second time same request will give 409 error. 
+
+Get is Idempotent
+
+http://localhost:8080/mystoreapp/1/order
+
+POST URIs
+
+Can have a PATH PARAMETER
+Should never have a QUERY PARAMETER
+Preferably have a REQUEST PAYLOAD
+
+-------------------------------------------
+GET HTTP method
+
+http://localhost:8080/mystoreapp/customer/1
+
+URI must have path parameter, incase a single resource is fetched
+Usually request body is unwanted
+
+code : 200
+In response body
+{
+	"name":"vishal"
+}
+
+-----------
+http://localhost:8080/mystoreapp/customer ? limit=10 & offset=0
+
+Let suppose we have huge data 
+Pagination 
+limit
+
+Fetch custoemr name = "abc"
+
+http://localhost:8080/mystoreapp/customer ? name = "abc"
+
+404 : Not Found Error
+
+----------------------------------
+Put and Patch : For update resources
+
+
+PUT : Update an existing resource | Create New Resources
+-- If resource exist update the resource.
+-- If resource not available create new resource.
+
+-- It replace the whole attributes with response body
+-- we can use PUT operation via path parameter or via response body.
+
+
+PATCH : Just changes Few Attributes
+
+
+-----------------------------------
+DELETE 
+
+No request body
+give path parameter : id 
+
+Status : 200 
+
+-- Completeley wipe the resources
+-- Soft Delete
+-- customers/1/order : multiple resources to delete
+
+-----------------------------------
+REST API is stateless architecture : 
+so it does not store the session token that retireve from the server.
+
+1) Basic Authentcation-client side : everytime provide user-name and password in the header of the request.
+
+username:password --> Base64 Encoding 
+In header = authorization: Basic XXXXXXXXXXXX=
+
+This is not secure 
+Encoding is used for compatible for HTTP character.
+
+- Require HTTPS
+- Subject to replay attacks
+
+- Digest Access athenctication
+- it does not contain username or password.
+It has public key cryptography.
+
+-- Asymmetric cryptography
+-- OAuth / OAuth-2 
+JSON Web Tokens
+
+------------------- 
+JWT - user authorization - used in Microservices.
+
+standard way to communicate with 2 party.
+
+------------------
+Oauth - open authorization
+
+1) Makes A Request to server
+2) Server sends Authorization code
+3) client sends this code to server
+4) Server returns access token
+
+Scope in OAuth-2 - 
+- Data to be accessed by ap
+- Request info by scopes
+- Read Scopes read data
+- Write scopes write data
+
+Redirect URL in OAuth2
+
+client is valide or not
+
+client ID + Client Secret
+Access Token
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

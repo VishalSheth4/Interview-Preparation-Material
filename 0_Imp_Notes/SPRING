@@ -1,0 +1,711 @@
+SPRING
+
+spring core
+spring jdbc
+spring orm
+spring data integeration
+spring WEB
+spring mvc
+spring boot
+AOP
+
+pre-requistics 
+core java, oops, pojos, JDBC(data integeration layer, data access layer), hibernate, servlet and JSP
+html, css and bootstrap, database ,mysql and postgress 
+
+----------------------------------
+Video 2 - what is Spring ?
+
+Spring is a dependency Injection Framework to make JAVA application loosely coupled.
+
+Dependency Injection : It is design pattern.
+
+We will not create object manually. we give task to spring to create object.
+Spring will inject object at run time - that whole process called Inversion Of Control
+
+i.e.
+let suppose we class A is tightely dependent on class B. In class A we will not create object of class B 
+manually. we will inject class B object in class A.
+
+with the help of @annonations or xml we notified the class we need Injection of object of some class
+
+##### Spring and JEE ######
+
+UI LAYER : Strut/JSF, Spring MVC
+Business/Services Layer : Security, Transaction Management
+Data Access Layer : Spring JDBC, Spring ORM
+
+------------------------------------
+Video 3 - Spring Modules | Overview 
+
+Spring CORE - core , beans , context , spEL(Spring Expression Language)
+	spEL = to manipulate object graph at runtime
+
+AOP - Aspect Object Programming
+Aspect - to de-couple the code
+Instrumentation - class loader support
+Messaging - to maps with message map
+
+Data Integeration Layer : JDBC , JMS , ORM , OXM
+	OXM - object xml mapping 
+	JMS - JAVA messaging service
+
+WEB Module : Web , Servlet , Portlet , WebSocket (to create Micro-service and REST API)
+
+TEST : Unit testing and Integerating testing (Junit and testNG and also provide mock object to isolate) 
+
+----------------------------------
+
+Video 4 - Spring IoC Container (ready to use object and we get the object when we needed)
+
+Spring containter : is a pre-defined program/component.
+USES of IoC : create Object, hold Object , depenedency Injection of Object
+
+Beans : which POJO class need to manage
+Configure file : configuration.xml file (property , which object dependent on another)
+
+
+Application Context Extends Bean Factory
+Application Contenxt : Interface - it represent an IoC container
+
+syntax most used : 
+ClasspathXMLApplicationcontext
+AnnontationConfigApplicationContext
+FileSystemXMLApplicationContext
+
+--------------------------------------
+
+Video - 5 - Ways of Injecting dependencies
+
+IOC will take respnsible to create object at runtime.
+to add object to other object.
+
+Dependency Injection can be done in 2 ways 
+
+Using Setter Injection / Property Injection
+Using Constructor Injection
+
+Setter Injection : 
+class Student{
+	int id;
+	setId(){}
+}
+
+To set property call setter Injection. IOC will call automatically.
+
+
+Constructor Injection :
+class student{
+	int id;
+	Student(id){ }
+}
+
+-- IoC handle primitive type can injection , Collection Type also can inject , reference type- other class Object
+
+Configuration File
+
+Configuration.xml File
+where we declare beans and its beans dependency 
+<beans>
+	<bean>
+	</bean>
+</beans>
+
+
+Support // DATA Types (Dependencies)
+Byte, short, char, int, float, double, long, boolean
+
+Support Collection Type
+list, set ,map and properties
+
+Support Reference Type
+Other Class Object
+
+----------------------------------------
+
+VIDEO 6 - New Maven Proejct
+
+- make config.xml file
+- using Applicationcontext : fetch object details without creating object.
+
+----------------------------------------
+VIDEO 7 - Property Injection using p schema and using value as attribute. 
+
+1) 
+<bean class="com.springcore.student" name="studnet1">
+	<property name ="StudentID">
+		<value>
+			223224
+		</value>
+	</property>
+</bean>
+
+2) 
+<bean class="com.springcore.student" name="studnet1">
+<property name="studentId" value = "2324"/>
+</bean>
+
+3) -- Declare p schema in config.xml
+
+<bean class="com.springcore.student" name="student1" 
+p:studentId="2324"
+p:studentName="Vishal Sheth"
+p:studentAddress="Lucknow"/>
+
+-----------------------------------------
+VIDEO - 8 How to inject collection types List , Set , Map and Properties
+
+Insert collection types ----
+
+LIST
+<bean>
+	<property name="List1">
+	<list>
+		<value>10</value>
+		<value>20</value>
+		<value>30</value>
+		<value>40</value>		
+	</list>
+</bean>
+
+SET
+<bean>
+	<property name="Set1">
+	<set>
+		<value>10</value>
+		<value>20</value>
+		<value>30</value>
+		<value>40</value>		
+	</set>
+</bean>
+
+Map
+<bean>
+	<property name="List1">
+		<map>
+			<entry key="JAVA" value="2month">
+			<entry key="PYTHON" value="1month">	
+		</map>
+	</property>
+</bean>
+
+PROPERTIES
+<bean>
+	<property name="properties1">
+		<props>
+			<prop key="name">vishal</prop>
+		</props>
+	</property>
+</bean>
+
+--------------------------------
+VIDEO - 9 Injecting Collection Types[ List , Set , Map , Properties ] | Practical
+
+--------------------------------
+VIDEO - 10 Injecting Reference Type Practical Video
+
+A{
+	B b;
+}
+
+A is dependent on B (Reference Injection)
+B{
+	
+}
+
+<bean>
+	<property name="">
+		<ref bean = "b">
+	</property>
+</bean>
+
+
+-------------------------------
+VIDEO - 11 Constructor Injection Complete Explanation
+<constructor-args/>
+
+
+<bean class="com.springCore.constructor.person" name="person">  
+<constructor-arg value="Vishal"/>
+<constructor-arg value="44"/>
+</bean>
+
+
+---------
+reference
+---------
+
+<bean class="com.springCore.constructor.ref" name="refe">  
+<constructor-arg value="python"/>
+</bean>
+
+<bean class="com.springCore.constructor.person" name="person">  
+<constructor-arg value="Vishal"/>
+<constructor-arg value="44"/>
+<constructor-arg ref="refe"/>
+</bean>
+
+-------------------------------
+VIDEO - 12 Ambiguity Problem and its Solution with Constructor Injection
+
+---- use type and index
+- top constructor will call when ambigious parameter constructor will there.
+if string parameter present in constructor then order does not matter then this issue called ambiguity 
+
+<bean class="com.springCore.constructor.person" name="person">  
+<constructor-arg value="Vishal" type="String" index="0"/>
+<constructor-arg value="44" type="int" index="1"/>
+</bean>
+
+--------------------------------
+VIDEO - 13 Life Cycle Method of Spring Bean
+
+Spring container make object 
+
+spring provide 2 method
+NOTE : we can change the name but signature must be same.
+
+1) public void init() - Intialization,code,loading,config,connecting db.
+2) public void destroy() - clean up code
+
+Spring bean - object create, call, intiate value from .xml - init()
+
+Configuration.xml - then we read and use the bean
+
+destroy() 
+
+Configuration Technique
+
+1) Xml
+2) Spring Interface
+3) Annonation
+
+---------------------------------
+
+Video - 14 Implementing Lifecycle methods Using XML 
+
+Emp.class
+
+emp{
+	int id;
+	emp(int id){this.id = id};
+	public void init() {
+	system.out.println("Init...");
+	}
+	public void destroy() {
+	system.out.println("Destroy...");
+	}
+}
+
+config.xml
+
+<bean class="com.springCore.constructor.emp" name="emp1">  
+<constructor-arg value="44" 
+init-method="init"
+destroy-method="destroy"/>
+</bean>
+
+--------------------------------
+
+Video - 15 Implementing bean life cycle using interfaces 
+
+NOTE : create object with 
+context.registerShutdownHook();
+for init property - call IntializingBean
+for destroy property - call DisposableBean
+
+Implements IntializingBean
+Implements DisposableBean
+
+In that method overide method init(), destroy()
+
+--------------------------------
+In java 11 this not worked
+so we need to add some dependency in pom.xml
+VIDEO - 16 Implementing Bean LifeCyle using Annotations 
+
+@PostConstruct
+@PreDestroy
+
+
+------------------------------
+VIDEO - 17 Autowiring in Spring framework
+
+Feature of Spring Framework in which spring container inject the dependencies automatically.
+Autowiring can not be used to inject primitive and string values. It works with reference only.
+
+Autowiring can be done in 2 ways
+
+1) XML
+	Autowiring mode:
+	No
+	byName - by name it will
+	byType - by Type it will
+	constructor
+	autodetect
+
+2) Annonations
+	@Autowired
+
+
+Autowiring advantages : 
+	Automatic
+	Less Code
+
+
+Autiwiring dis-advantages
+	No control of programer
+	It can not be used for primitive and string values	
+
+-----------------------------------
+
+VIDEO - 18 Autowiring using XML complete Session | byName | byType | byConstructor
+
+
+1)	<bean class="com.springCore.auto.wire.address" name="add">
+		<property name = "street" value="lucknow D3"/>
+		<property name="city" value="delhi"/>
+	</bean>
+
+	<bean class="com.springCore.auto.wire.emp" name="emp1" autowire="byName"/>
+
+
+2)
+
+	<bean class="com.springCore.auto.wire.emp" name="emp1" autowire="byType"/>
+
+3) 
+	<bean class="com.springCore.auto.wire.emp" name="emp1" autowire="constructor"/>
+
+------------------------------------
+
+VIDEO - 19 @Autowired Annotation for Autowiring 
+
+1) @Autowired above reference object
+	change in config.xml : <context:annonations-config/>
+
+2) @Autowired above setter method
+change in config.xml : <context:annonations-config/>
+
+3) @Autowired above constructor 
+change in config.xml : <context:annonations-config/>
+
+-------------------------------------
+
+VIDEO - 20 @Qualifier Annotation with Autowiring
+
+@Qualifier can used with @Autowired annonations
+
+when 2 beans are present in config.xml then it throw error for(reference object) it throws found 2 beans.
+Ambigious beans.
+
+	@Autowired
+	@Qualifier("temp")
+
+temp means bean name
+
+-------------------------------------
+
+VIDEO - 21 Spring Standalone Collections[List,Map,Properties] Util schema in spring
+
+1) In config.xml file we can not use other list tag in other bean tag.
+<bean>
+<list/>
+</bean>
+
+
+<bean/> we can not use above list in this bean tag.
+
+2) we can not defind that list tag is arrayList, linked-list, vector
+
+
+use util tag
+
+<util:list list-class="java.util.linkedList" id="mybestfriends">
+<value> AMAN </value>
+<value> RAMAN </value>
+<value> ANKIT </value>
+
+</util:list>
+
+use id in another bean tag
+
+-----------------------------
+
+VIDEO - 22 Sterotype Annonations
+
+XML - <bean/>
+now we not want to use <bean> tag
+with the help 
+
+@Component
+class Student{
+
+	@Value("Vishal")
+	string name; 	
+}
+
+in Config.xml : <context:component-scan base-package="packageName">
+
+we get the camelCase 
+
+-------------------------------
+here we can not declare bean instead we use @component to declare 
+VIDEO - 23 Collections with @Value
+
+
+1)  
+<util:list list-class="java.util.linkedList" id="mybestfriends">
+<value> AMAN </value>
+<value> RAMAN </value>
+<value> ANKIT </value>
+
+</util:list>
+
+
+2)
+@Component
+class Student{
+
+	@Value("Vishal")
+	string name; 
+
+	@Value("#{mybestfriends}")
+	List friends	
+}
+
+
+-----------------------------
+
+VIDEO - 24 Spring bean scope
+5 types of bean scope : 
+
+- Singleton
+- prototype
+
+--- Web Application Specific
+- request
+- session
+- globalsession :
+
+
+- Singleton : Spring container has by default type singleton | only One object create everytime we call 
+- prototype : everytime it create new object whenever we call
+
+1) Singleton
+e.g. : 
+ApplicationContext con = new ClassPathXmlApplicationContext(config.xml);
+Student stu1 = con.getBean("ob",Student.class);
+Sout(stu1.hashCode());
+Student stu2 = con.getBean("ob",Student.class);
+Sout(stu2.hashCode());
+
+o/p : Both will print same hashcode - because by default singleton type is there.
+
+2) Prototype 
+We can decalre scope by 2 ways : xml and annonations.
+
+-- With Annonations
+@Compoenet("ob")
+@Scope("prototype")
+
+-- with XML 
+<bean class="com.spring" name="Teacher" scope="prototype"/>
+Now both object hashCode will be different
+
+----------------------------------------------------
+
+VIDEO - 25 Spring Expression Language : SpEL :
+
+Supports Parsing and Executing expression with the help of @Value annonations
+
+@Value("#{expression}")
+
+: We can use Class,Variable,Methods,constructors and object and primitve type and keyowrds.
+
+-- How to invoke static method and Variable ?
+
+Syntax 
+
+- T(class).method(param)
+- T(class).variable
+
+Example : @Value("#{T(java.lang.Math).sqrt(25)}")
+
+@Value("#{new java.lang.String('Vishal Sheth')}")
+
+----------------------------
+VIDEO - 26 @value Espl - Boolean 
+
+@Value("#{(8>3)}"")   -- True
+@Value("#{(8<3)}"")   -- False
+
+
+
+----------------------------------
+Spring interview questions
+----------------------------------
+
+server -> operating system -> JVM -> TOMCAT -> APPLICATION -> JAVA programmer can secure applications.
+
+How to configure the spring ?
+
+Spring security will check in initial phase on any kind of activity. check if legimate or geniune user.
+
+3 types of authentication 
+
+Knowledge based authentication : Password , PIN , Answer to personal questions
+
+Possession based authentication : text msg to phone , key card or badges , access token
+
+knowledge + passession based : Multi factor authentication, Login to VSIs or AWS system
+
+What are the core concepts of Spring Security ?
+
+Authentication - Process of identifying the person trying  to access the application.
+Authorization - Process of identifying the person is allowed to do this operation.
+Principal - currently logged in user that we store in session.
+Granted Authority - are Bunch or group of permissions which are allowed for a user.
+Roles - Group of authority that are assigned together. E.g - Role USER, login and Search.
+
+How will you implement the Spring securtiy ?
+Is by adding started dependency in pom.xml
+
+<dependency>
+	<groupID>org.springframwork.boot</groupID>
+	<artifactID>spring-boot-starter-security</artifactID>
+	<version>2.4.3</version>
+</dependency>
+
+How is Spring security intercepting your requests ?
+-- Because of filter of servlets. 
+
+Q) SpringBoot started security - change in application.properties file
+spring.security.user.name = codevishal
+spring.security.user.password = code
+
+Q) How to configure authentication spring security ?
+
+@EnableWebSecurity
+1) extends webSecurityConfigureAdapter
+2) override configure method (AuthenticationManagerBuilder auth){
+	auth.inMemoryAuthentication().withUser("User").password("Pass").Roles("USER");
+}   
+// using builder pattern accessing the / change the authentication
+
+3) create method of passwordEncoder getPasswordEncoder(){
+	
+}
+
+
+Q) How to configure authorization spring security ?
+
+@enablewebSecurity
+1) extends webSecurityConfigureAdapter
+2) override configure(httpSecurity) method{
+	http.authorizeRequests()
+	.antMatchers("code/admin").hasRole("ADMIN")
+	.antMatchers("code/user").hasRole("User")
+	.antMatchers("/").permitAll()
+	.and()
+	.formLogin();
+}
+
+
+--------------------------------
+https://www.youtube.com/watch?v=yNY8HLk1hNM
+
+Spring interview questions : 
+1) spring General questions 
+- Spring Framework : light weight, loosely coupling 
+- Advatnages : layered Architecture , Enables POJO , Dependency Injection, Inversion Of control, Open source.
+- Features : Light Weight, Inversion Of Control, Aspect Oriented, Container, MVC Framework, Transaction Management, JDBC Exception Handling.
+
+Modules : 
+WEB - WebSocket, Servlet, Web, Portlet
+DATA-Access - JDBC,ORM,OXM,JMS,Transactions 
+Messaging
+Instrumentation
+Aspects
+AOP
+Core Container : Beans, Core , Context, SpEL
+Test :
+
+- Spring Configuration File : XML File, contains the class Information, how classes are configured and introduce to each other.
+
+Components : 
+An interface the define the functions
+The implementation that contains properties, its setter and getter method, functions etc.
+
+Spring AOP
+Spring configuration XML File
+Client program that uses the function
+
+Spring Beans
+Spring Annonations
+Spring Data Access
+Spring AOP
+Spring MVC
+
+
+----------------------------------
+12 Annonations of spring boot framework
+
+@SpringBootApplication  -- Main class -- @EnableAutoConfiguration + @ComponentScan + @Configuration
+
+@EnableAutoConfiguration -- auto configure - pom.xml -- it trigger auto configure
+@ComponentScan -- in package , sub-package scan is there is bean or not
+
+@Configuration -- it configure in the pom.xml -- class marks as a source of bean -- it returns a bean 
+	@Bean -- method will return object....
+
+@Autowired
+
+@Component 
+	@Controller (component, MVC controller) -- presentation layer , view layer
+	@Service -- service class
+	@Respository  -- dao class
+
+@ComponentScan(base packages = {"my pack"})
+
+@Qualifier -- required one bean but get two bean
+@Qualifier("student2")   -- object id.
+
+@Lazy -- it will create object when needed.
+
+@RequestMapping(value = "/home", method = Request.Method.GET)
+
+@ResponseBody -- atuomatic convert into json into serialize
+
+@RequestBody -- automatic deserialize
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+Spring JDBC 
+
+VIDEO - 29) --------------------------
+
+Note : poerful mechanism to connect to the database and execute SQL queries.
+
+JAVA PROGRAM -> SPRING JDBC MODULE (jdbc template) -> DATABASE
+
+JDBC concept : it is an API to perform operation with database.
+Problem of JDBC : 
+1) We need to write a lot of code
+2) Exception Handling problem : checked Exception - SQL Exception
+3) Repeating of all these codes from one to another database logic is a time consuming task.
+
+
+Spring JDBC provide class "JdbcTemplate" which has all the important methods to perform operation with database.
+
+
+Fire Query (CRUD) -----> JDBCTemplate contains dataSource Object ---------> DataSource(I) implements DriverManagerDataSource contains the database connection configuration (URL, username, Password)
+
+DriverManagerDataSource( contains implements of db configuration properties) -- (driverClassName, URL, username, Password))
+
+
+VIDEO-30) ---------------------------
+
+Create Project 
+
+In pom.xml 
+Add dependency
+
+Spring-core
+Spring-context
+Spring-jdbc
+mysql-connector-java
+
+Video-31) ---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
