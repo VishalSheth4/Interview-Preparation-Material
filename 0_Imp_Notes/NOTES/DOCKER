@@ -1,0 +1,21 @@
+DOCKER
+
+It is a tool designed to make it easier to 
+build , deploy and run applications by using containers
+Problem before docker
+
+Dependency version mismatch from one Env to another
+Library corrupted
+Software upgrade
+
+Step-1) 
+
+Contains allow a developer to package up an applications with
+all of the parts it needs such as library and other dependencies and
+ship it out as one package
+
+docker container : is the running instances of the docker image
+
+docker image : it is the skeleton of the docker file. Created by the developer
+
+docker hub: repository to pulling the docker image

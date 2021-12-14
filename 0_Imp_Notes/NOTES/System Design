@@ -1,0 +1,134 @@
+📌 Instahyre
+📌 AngelList
+📌 Y combinator
+📌 Linkedin
+📌 Naukri
+📌 HackerEarth and its slack channel
+📌 career pages
+📌Team Blind
+
+VIDEO - 1) 
+Sharding :
+split the database 
+
+Types of sharding : 
+Vertical Sharding
+Horizontal Sharding
+Directory based Sharding : Load balancing
+Hashing Based Sharding
+
+Dis-Advantages : 
+Joins and De-normalization
+Referential Integrity
+Rebalancing
+
+TIC-TAC-TOE
+------------------
+-- Timed ? Game or not 
+-- Undo Function allowed or not ? 
+-- Spectated
+-- static storage of player data.
+-- Tournaments
+
+Board : 2D matrix int[n][n]
+Winner = {"FIRST","SECOND", "DRAW","UNDECIDED"}
+
+-- Function API 
+intialize();
+getBoard()
+getWinner();
+getcurrentPlayer();
+makeMove(Move m);
+class Move{
+	int player;
+	int i, int j;
+}
+
+class Game{
+	GameID
+	UserID1
+	UserID2
+	List<Move>
+}
+
+---------------------------------------
+System Design
+
+VIDEO - 3 )
+Communication between Client and Server : 
+
+HTTP communication
+HTTP polling (AJAX polling)
+Long Polling 
+WebSockets 
+Server Side Events
+
+1) HTTP communication : Normal way - 
+-- Request to server and response send to client. 
+
+2) HTTP Polling method : 
+- Client make XmlHttpRequest or ajax request to the server repeatedly.
+- Client do initial request with every interval of time.
+
+if no data from server - it send null
+if data present - response data;
+- E.g. Weather Update
+- DrawBacks : Waste resource 
+
+3) Long Polling : 
+- Server hold the client connection (persistent)
+- Server deliver the data when aviailable . 
+- It will not response immedeately but when data available it will response.
+- Drawbacks : latency reduce , message reliability not gurantee
+
+4) WebSockets : client-server make TCP handshake.
+- Keep alive only when it termiate by client or the server.
+- Asynchronous method 
+- e.g. real time web application - continously send / data pushed into the same sockets., Zerodha, chat applications. 
+
+5) server side events :
+- Client will send persistent connection to server. 
+- it will continous sending data from server to client.
+e.g. - stock price
+
+
+VIDEO - 4) 
+Latency : 
+1) tcp handshake
+2) client connect with server via http protocol, t1
+3) processing t2
+4) server send response to the client. t3
+
+Latency : t1+t3
+
+- For low latency use : HTTP/2 will combine css5 and JS-5 will combine file will result into loading of file decrease
+- CDN - content delivery network : geopgraphically location / put data to nearest location
+- Browser Cache : cache the resource into locally.
+
+ThroughPut : 
+Response Time : t1 + t2 + t3 
+
+Processing time : t2 
+
+
+-----load balancer : 
+
+distribute/driven the traffic from client to across the server 
+add/remove server will be easy
+health check
+reduce network traffic by compression
+maintain cache for session
+
+
+
+
+
+
+
+
+
+
+
+
+
+

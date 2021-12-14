@@ -1,0 +1,476 @@
+
+
+1 ,2,3,4,5,6
+
+3 remove : 
+3 reference
+
+head reference not given
+
+
+1) approach XOR - list (double linked list)
+
+-----------------
+square root - floor value o/p: 24 - i/p: 4 
+
+int n =24;
+int low =0;
+int high = 24;
+int tempResult =0;
+while(low<=high){
+	mid = low+high/2;
+	if(mid*mid > n){
+		high = mid-1
+	}else{
+		tempResult = mid;
+		low = mid+1;
+	}
+}
+
+
+find Badday 
+7,6,7,3 , 7 , 8 ,5 ,12
+
+for(i = 5; i<0;i--){
+	min =
+	if(a[i]>a[i-1]){
+	 ++;
+	}
+}
+
+polling
+----------------------
+Microsoft : 
+
+a1, a2, a3, b1, b2, c1
+
+Add : a -- O(1)
+Remove a1 - a2 - a3
+
+a1, a2, a3, a4, b1, b2, c1
+
+a - a4  
+b - b2
+c - c1
+
+N - queue Problem
+
+
+
+1) variation deliemter 
+
+			A
+		B		         c 
+D	       e	    f           g
+	
+D,B,ACF
+
+TREE - MAP : 
+
+0  A
+-1 B
+-2 D
+1 C
+2 G
+
+Int globalLevel = 0;
+level = 0;
+preOrder(root, level){
+if(root == null) return;
+if(level>globalLevel) print; globalLevel update
+preOrder(root.l,level+ 1);
+preOrder(root.r,level+ 1);
+}
+
+
+
+
+D B E
+
+Queue<A, null>
+recursive()
+if(queue.empty()) return
+New Queue<B,C, null>
+recursive(Queue,)
+S.OP();
+
+
+--------------------
+Left view: preorder (LRootR), level + 1
+Right view: postorder (RRootL), level + 1
+Top view: postorder (LRootR), Left = level -1,right = level + 1, map<distance, Node.value> do not override
+Bottom view: postorder (LRootR), Left = level -1,right = level + 1, map<distance, Node.value> please override
+Vertical view: postorder (LRootR), Left = level -1,right = level + 1, map<distance, List> do not override, modified - TreeMap - sorted traversal{-1,0,1}
+Diagonal View: preorder(),left = level -1, right = level, map - print
+
+
+
+Stack <null, A , null, B C null, D E F G null>
+stack<C B>
+
+Queue <,G,F,E,D>
+STACK <A,C,B,G,F,E,D>
+
+
+D,E,F,G,B,C,A
+
+
+
+Height of a Tree :
+
+calculateHeight(Node root){
+	if(root == null){
+		Return 0;
+ 	}
+	Return Math.max(calculateHeight(root.l),calculateHeight(root.r)) + 1;
+}
+
+
+
+
+-----------------------
+
+1->2->3->4->5
+5->4->3->2->1
+
+1->2->3->4->5->6->7->8->9
+groupSize=3;
+3->2->1->6->5->4->9->8->7
+
+
+1->2->3->4->5->6
+  
+3->2->1->4->5->6  
+
+
+
+ListNode* revList(ListNode* head, int groupSize) {
+	
+}
+1->2->3->4->5->6
+  
+public Node reverseList(Node head, int groupSize){
+		if(head==null){
+    	return head;
+    }
+		Node temp = head;
+    currptr = head;
+    nextptr = null;
+    prev = null;
+    int count = groupSize;
+    while(currptr != null && count >0){
+				nextptr = currptr.next;
+        currptr.next = prev;
+        
+        prev = currptr;
+        curr= nextptr;
+        count--;
+    }
+    head.next = reverseList(Node nextptr, int groupSize);
+  	return prev;
+}
+
+
+3,2,1 | 6,5,4  |
+  head = 1
+  prev = 3
+  
+  
+  head = 4
+  prev - 6
+
+
+  
+
+/*
+
+You are given a string s.
+We want to partition the string into as many parts as possible so that each letter appears in at most one part.
+Return a list of integers representing the size of these parts.
+
+Input: s = "ababcbacadefegdehijhklij"
+
+max. =8
+i   = 14
+Output: [9,7,8]
+Explanation:
+["ababcbaca", "defegde", "hijhklij"]
+
+abcade -> abca d e
+abaccd -> aba cc d 
+
+*/
+  
+abaccd
+
+i=3
+max = 4 
+aba
+
+a2
+b1
+c4
+d5
+
+max = 4
+i = 4
+hmap.get(s.charAt(i) = 4)
+
+
+abcacde
+i=5
+max = 5
+hmap.get(s.charAt(i)==max)
+i == max
+a - 3
+b - 1
+c - 4
+d - 5
+e - 6
+
+
+
+
+a 2
+b 1
+c 4
+d 5
+
+abcacd  
+  
+i = 2.  // c
+max = 3
+if (i < max ) then update max = 4
+  
+a = 3
+b = 1
+c - 4
+d = 5  
+  
+  
+vector<int> solve(string S) {
+	
+}
+
+
+// abcade 
+
+max = 3
+
+a = 3
+b = 1
+c = 2
+d = 4
+e = 5
+  
+max = 3
+i   3 
+  
+  
+public List<Integer> solve(String S){
+		int len = S.length();
+  	HashMap<Character,Integer> hmap = new HashMap<>();
+  	for(int i=0;i<len;++){
+      	hmap.put(S.charAt(i),i);
+    }
+  
+  	List<Integer> ans = new ArrayList<>();
+  	int max = -1;
+  	int startingIndex = 0;
+    
+    for(int i=0;i<len;i++){
+      if (hmap.get(S.charAt(i)) > max && i > max){
+      		ans.add(max-startingIndex);
+          startingIndex = i;       
+          max = hmap.get(S.charAt(i));
+      }else if(i > max){
+      
+      }
+      if(i == max){
+        ans.add(max-startingIndex);
+        startingIndex = i;  
+      }
+  	return list;
+  
+}  
+  
+
+	  1
+   2       3
+4 ,  5 , 6  ,7
+
+
+4) Diameter tree
+max distance between two leaf
+
+Base
+if(root == null) {return root}
+Hypothesis
+
+lHeight  = without parent
+rHeight
+LDiameter = with parent
+RDiameter
+
+Induction
+
+
+Q : 2,7,6,5,4
+S : 1,3,2,7,6,5,4
+
+
+4,5,6,7,2,3,1
+
+
+
+4,5,6,7
+
+1) Level : Queue    
+1,2,3,4,5,6,7
+
+
+2)
+1
+23
+4567
+
+Queue :   
+
+1
+2,3
+4,5,6,7
+
+
+
+
+------------------------
+
+ababcbacadefegdehijhklij
+
+len = 23
+
+a = 8
+b = 5
+c = 7
+d = 9
+
+
+max 8 
+start  = 0
+
+
+
+Dear Parul,
+
+Thank you so much for offering me the position as the Software Developer at Weission Technology. I strongly believe I will be a good asset to your team, and my 3+ years of experience in the IT industry has equipped me with the skills and knowledge needed to help your company advance to the next level.
+
+Before I can accept this offer, I wanted to discuss the proposed salary that we have discussed yesterday.  As I mentioned earlier, I had done my Master in Computer Science and had worked in Oracle for 2.6 Years and this all will bring in an addition to the company. With my expertise and proven skill set, I feel that a salary between 14-Lakh Rs and 15-Lakh is appropriate, which is slightly more than the 13-Lakh Rupees you offered. And my last working day is 1st December 2021.
+
+I am confident that my work ethic and expertise will contribute to the increased success of your organization, and I am excited about the possibility of being part of Wession Technology. Please let me know when we can further discuss the salary for this position.
+
+
+Thank you for your time, and I look forward to hearing from you soon.
+
+Sincerely,
+Vishal Sheth
+
+
+
+
+Twitter : 
+
+login
+register
+timeline
+retweet
+like
+comment
+notifications
+
+
+UserID : username | password
+Post : postID | content | userID | likeID | commentID | timeStamp | originail&retweet
+Like : likeId | UserID
+Comment : commentID | userID
+Activity: userID | logs
+
+
+login(Stirng username, String password) {}
+registration(Stirng username, String password) {}
+class Post{
+	int postID // Autogenrate
+	String content
+	Stirng userID
+	List<Like>
+	List<comment>
+}
+
+AddPost(Post post){ }
+
+timeLine(List<Post> posts) {}
+
+reTweet(String postid) {}
+
+Notifications(UserID, Activity){ }
+
+
+
+
+
+
+
+
+
+string to BT convert
+
+
+4(2(3)(1))(6(5))
+
+
+
+		 4
+	2      6
+3   1  5
+
+
+Stack :  2 4
+
+Node node = new Node(4);
+for(int i=1;i<s.length();i++){
+		if(s.charAt(i)== '('){
+				s.push(node);
+		}else if(s.charAt(i)== ')'){
+				node = s.pop();
+		}else{
+				if(node.left !=null){
+						node.left = node(3);
+						node = node.left;
+				}
+				if(node.right!=null){
+					node.right - node(1);
+					node = node.right;
+				}
+		}
+}
+
+
+Hello Mam
+
+The Firm, reserves the right, to make reasonable changes to any of your terms of employment,
+which will be communicated to you in writing.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

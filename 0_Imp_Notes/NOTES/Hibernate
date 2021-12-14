@@ -1,0 +1,257 @@
+Hibernate
+
+# ---MAVEN VIDEO-------- PROJECT MANAGEMENT TOOL  -----------
+
+1 MAVEN : 
+
+	Project management Tool that is based on POM (Project object model)-POM.xml
+	pom.xml file we can change the version of dependency, plugin
+	Building and deployed jar,war file
+	Resource & Release management
+	war. management - WAR (web archive) 
+	Document management
+	Create right project strucuture.
+	Adding set of Jars in each project
+
+2 GRADLE :
+	Gradle build we provided dependency it will download.
+
+VIDEO -1) -----BASIC Hibernate ----------- 
+
+- Java framework that simplfies the development of java applications to interact with the database.
+
+- ORM - Object Relational Mapping
+- Open source , Lightweight
+- It is based on JDBC
+- Complete worked on POJO class..
+-Hibernate is loose coupled : it is a non-invasive framework, means it won't force the programers to extend / implment any class/interface....
+
+
+# Traditional way to save data (JDBC)
+
+- Class - Object - Variable Intialziation : we call JDB API to store data.
+- we manually write sql query to store object to database using JDBC..
+- We write DAO Class.
+
+# How hibernate role comes :
+
+- Class - Object - Variable : We provided object to hibernate now hibernate will automatically save into the database.
+- We create a class in such a way that mapped to database via annotations, keywords. 
+- For mapping we use XML or Annotations.
+
+
+----------------------------------------
+Session Factory :
+
+import org.hibernate.SessionFactory;
+
+sessionFactory : threadSafe Object : It should be one for every project.
+
+It works like connection , we crreate, save
+It give session
+
+----------------------------------------
+If hibernate.cfg.xml file is not at proper path then we have to give file name and path inside configure function.
+
+SessionFactory factory = new Configuration().configure().buildSessionFactory();
+
+Session session = factory.openSession();
+    //
+    session.beginTransaction();
+    session.save(st);
+    session.getTransaction().commit();
+    session.close();
+
+st is a object of student class
+-----------------------------------------
+@Entity - Create Table
+@Table
+@Id - For giving Primary Key
+@GeneratedValue
+@Column
+@Transient
+@Temporal
+@Lob 
+
+------------------------------------------
+Commonly use annonations
+
+@Entity - Use to mark any class as Entity.
+
+@Table - use to change the table details.
+
+@Id - use to mark column as id (Primary Key).
+
+@GeneratedValue - automatically generate primary key value. using an internal sequence.
+
+@Column - Can be used to specify column mappings. Modfify column details i.e. column name, nullable true, length
+
+@Transient - this tell hibernate not to save this field
+
+@Temporal - date format changes
+
+@Lob - Blob, Clob
+
+@OnetoOne
+@oneToMany
+@ManyToMany
+@ManyToOne
+@JoinColumn
+
+
+----------------------------------------
+// get, Load
+session.get
+
+Get ---
+
+-- get method of hibernate Session returns null if object is not found in cache as well as on database.
+-- get() involves database hit if object does not exists in Session Cache and returns a fully intialized object
+ which may involve several database call.
+-- Use if you are not sure that object exists in db. or not.
+
+
+Load ---
+-- load() method throws ObjectNotFoundException if object is not found on cache as well as on database but never return null.
+-- load method can return proxy in place and only intialize the object or hit the databse if any method other than getId() 
+is called on persistent or entity object. This LaZy Intialization increase the performance.
+-- Use if you are sure that object exists.
+
+-----------------------------------------
+Video 9
+
+Embeddable Annonations --
+@Embeddable
+
+class Student{
+	int sid;
+	string name;
+	private Certificate cert;
+	int CertId;
+}
+
+@Embeddable
+class Certificate{
+	String course;
+	String duration;
+}
+
+Output :
+
+student - table
+sid , name , coures , duration
+
+
+------------------------------------------
+video 10;
+One to one mapping
+## Directional and Bidirectional Mapping
+
+@OneToOne
+@OneToMany
+@ManyToOne
+@ManyToMany
+
+@mappedBy("")
+@JoinColumn
+
+-------------------------------------
+Video 14
+
+Fetch Type
+Eager and Lazy
+
+Eager : It is a design pattern which data loading occurs on the spot
+
+Lazy : In Lazy Loading, associated data loads only when we explicitly call getter or size method.
+
+By default it is LAZY mode.
+
+Syntax-wise : 
+@OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+@OneToMany(mappedBy = "question", fetch = FetchType.EAGER)
+
+
+-----------------------------------------
+Video 15
+
+Hibernate / Persistance LifeCycle states
+
+Transistent State
+Persistent state
+Detached state
+Removed state
+
+sessionObject is an intermediator which give save,delete,update method
+
+i.e.
+
+n = 46
+x = 47
+
+1) when any new object is created and that object has the value via setter /constructor than this phase is called "transient phase".
+
+2) session.save(n,x);
+now it associated with "persistent state" - now data store to db.
+
+3) when we close,clear the session - "detached state" (so now it is not associated with db.)
+
+4) session.delete()
+now it is gone to - "removed state"
+
+-----------------------------------------
+
+Video 16
+Practical og Hibernate State
+
+-----------------------------------------
+
+Video 18 -- HQL (Hibernate Query Language)
+
+How to get the data in hibernate ?
+ 2 ways to get the data - Get() and Load()
+we Get() if we know id or name
+
+How to load complex data ?
+Here we have to match some criteria or do some join or to fetch some complex data.
+Hibernate supports both HQL or SQL. Suggested to use HQL.
+
+HQL - Database Independent , Easy to learn for programmer.
+	SYNTAX : from Student
+
+SQL - Database dependent , Easy to learn for DBA.
+	SYNTAX : Select * from Student
+
+--------------------------------------------
+Video 18 -- Execute HQL Queries
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

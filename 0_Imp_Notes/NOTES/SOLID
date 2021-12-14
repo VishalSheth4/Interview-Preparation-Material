@@ -1,0 +1,270 @@
+SOLID 
+
+S : single Responsibilty Responsible
+O : Open for closed for modification Principle
+L : Liskov Substitution Principle
+I : Interface Segregation Principle
+D : Dependency Inversion
+
+------------------------------------
+
+1) Single Responsibility Responsible
+
+Every class responsible to single purpose only i.e. database Connection class, employee class 
+
+-- Divide the big-class in db-Connection class, DAO class, POJO class, Interface, implementedClass. 
+
+2) open for extension closed for modification principle
+
+i.e : let suppose we write seperate code for addition and subtraction and now we have added multiply and division then we need to modify the code.
+
+Instead of this we pass interface instance  (Interface of multiply, division, addition, subtraction) and if need modification we add the classes instead of changing the current code base.
+
+i.e.
+
+public interface CalculationOperation {
+	void perform
+}
+
+// Addition 
+public void Addition implments CalculatorOperation{
+	@Override 
+	public void perform(){
+			// Add Logic
+	}
+}
+
+// Subtraction 
+public void Subtraction implments CalculatorOperation{
+	@Override 
+	public void perform(){
+			// Subtract Logic
+	}
+}
+
+public class Calculator{
+	public void calculate(CalculatorOperation operation){   //In arguments simply pass the instance addition and subtraction
+		operation.perform();
+	}
+}
+
+------------------------------
+
+3) Liskov Substitution Principle
+
+Subtype should be replaceable by their base types - It can be solved by using the composition.
+
+i.e. We can add new features but still old features need to be supported. (Backward Compatibility)
+
+------------------------------
+
+4) Interface Segration Principle
+
+Must segregate a specific Generic Interface to have multiple Interface.
+
+------------------------------
+
+5) Dependency Inversion
+
+high level module does not depend on low level module. 
+
+
+------------------------------------
+Pattern
+------------------------------------ 
+1) singleton Pattern - Only one class is responsible to create Instnace and only one instance is available.
+
+i.e. 
+public class Employee{
+	int empID;
+	private Employee(){
+			// instance is not created with private constructor...
+	}
+	Employee emp;
+	public static Employee createInstance(){
+		if(emp == null){
+			emp = new Employee();
+		}
+		return emp;
+	}
+}
+
+private constructor
+Static keyword is used to acces without creating object.
+check if instance is null or not;
+
+Output : Employee emp = Employee.createInstance();
+
+------
+What if multiple threads are accessing singleton class...
+
+Thread t1 = new Thread(new Runnable(){
+	publicvoid run(){
+		Employee emp = Employee.createInstance();
+	}
+});
+
+Thread t2 = new Thread(new Runnable(){
+	publicvoid run(){
+		Employee emp = Employee.createInstance();
+	}
+});
+
+t1.start();
+t2.start();
+
+
+So here 2 different instance will be created
+So just to add synchronized block in createInstances method
+
+i.e. 
+public class Employee{
+	int empID;
+	private Employee(){
+			// instance is not created with private constructor...
+	}
+	Employee emp;
+	public static Employee createInstance(){
+		if(emp == null){
+			synchronized(Employee.class){
+				emp = new Employee();			
+			}
+		}
+		return emp;
+	}
+}
+
+----------------------------------
+2) Factory Design Pattern
+
+low coupling and more extensible
+
+example : user subscription in website
+
+public abstract class MiModel{
+	public abstract void CPU();
+	public abstract void RAM();
+	public abstract void Price();		
+}
+
+public class Mibolt extends MiModel{
+	
+}
+
+public class MiFire extends MiModel{
+	
+}
+
+
+---------
+Factory 
+public MiModel produceModel(String model){
+	MiModel mobile = null;  // Creating instance of abstract class...
+
+	if (model.equalsIgnoreCase("MiBolt")){
+		mobile = new MiBolt();
+	}else if (model.equalsIgnoreCase("MiFire")){
+		mobile = new MiBolt();
+	}
+
+	// call coreesponding function
+	mobile.CPU();
+	mobile.RAM();
+	mobile.Price();
+}
+
+------------------------
+Improvised Version - let suppose new class MIa1 class introduce 
+
+public MiModel produceModel(String model){
+	MiModel mobile = null;  // Creating instance of abstract class...
+	mobile = FactoryMethodClass(model);
+
+	// call coreesponding function;
+	mobile.CPU();
+	mobile.RAM();
+	mobile.Price();
+}
+
+public class FactoryMethodClass{
+	static MiModel getInstance(String model){
+
+		MiModel mobile = null;  // Creating instance of abstract class...
+		if (model.equalsIgnoreCase("MiBolt")){
+			mobile = new MiBolt();
+		}else if (model.equalsIgnoreCase("MiFire")){
+			mobile = new MiBolt();
+		}
+		return mobile;
+	}
+}
+
+---------------------------------------
+3) Abstract Factory Design pattern
+
+Improvised version of factory design pattern...
+
+public abstract class MobileFactory{
+	public abstract MiModel(String Model);
+
+	public MiModel configureMb(String model){
+		MiModel mobile = produceMobile(model);
+		mobile.CPU();
+		mobile.RAM();
+		mobile.Price();
+		return mobile;
+	}
+}
+
+public class LondonFactory extends MobileFactory{
+	@Override
+	public MiModel produceMobile(String model){
+		MiModel mobile = null;
+		if (Mifire == model){	mobile = new MiFire();	}
+		if (MiBolt == model){	mobile = new MiBolt();	}
+	}
+}
+
+Same for newyork factory();
+
+----
+
+In main:
+	psvm(String args[]){
+		MobileFactory factory = new LondonFactory();
+		MiModel mobile = factory.configureMb("MiFire");
+	}
+
+----------------------------------------
+----------------------------------------
+Builder Design pattern
+
+ It is creation pattern
+ It is used to create multiple instance of different type and we can combine it
+ 
+
+-------------------------------------
+Decorator - structural pattern
+
+Strategic - behavior pattern
+
+
+id proof
+employment
+education
+techm form
+
+
+-------------------
+
+
+
+
+
+
+
+
+
+
+
+

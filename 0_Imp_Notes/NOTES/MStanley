@@ -1,0 +1,744 @@
+
+
+1. What is Symmetric Tree : 
+	A symmetric tree is defined as a tree which is mirror image of itself about the root node. 
+
+2. What is Linked List and How to detect and remove loop in a Linked List  
+3. Stream API : 
+	Introduced in Java 8, the Stream API is used to process collections of objects. A stream is a 
+	sequence of objects that supports various methods which can be pipelined to produce the desired 
+	result. ... Streams don't change the original data structure, they only provide the result as per
+	the pipelined methods
+
+4. Use of ExecutorService : The Java ExecutorService is the interface which allows us to execute tasks on threads asynchronously. The Java ExecutorService interface is present in the java.util.concurrent package. The ExecutorService helps in maintaining a pool of threads and assigns them tasks. It also provides the facility to queue up tasks until there is a free thread available if the number of tasks is more than the threads available.
+
+5. Functional Interface
+6. Compare & Comparable 
+7. Lumda Function
+
+1) executor service
+
+-------------------------------------------
+
+2)program to find the index of number who's sum of left side is equal to right side
+static int findElement(int arr[], int size)
+    {
+        int right_sum = 0, left_sum = 0;
+        // Maintains left cumulative sum
+        left_sum = 0;
+         
+        // Maintains right cumulative sum
+        right_sum=0;
+        int i = -1, j = -1;
+         
+        for( i = 0, j = size-1 ; i < j ; i++, j-- ){
+            left_sum += arr[i];
+            right_sum += arr[j];
+             
+            // Keep moving i towards center until
+            // left_sum is found lesser than right_sum
+            while(left_sum < right_sum && i < j){
+                i++;
+                left_sum += arr[i];
+            }
+            // Keep moving j towards center until
+            // right_sum is found lesser than left_sum
+            while(right_sum < left_sum && i < j){
+                j--;
+                right_sum += arr[j];
+            }
+        }
+        if(left_sum == right_sum && i == j)
+            return arr[i];
+        else
+            return -1;
+    }
+
+-------------------------------------    
+
+3) application of thread in project
+4) height of binary tree program
+5)detect cycle in linkedlist and undirected graph
+6) implement heap from stack
+7)lambda expression
+8)write a program to check whether number  rotated 360 degree is same as the number
+9) countdown latch
+10) scenario to create a ludo game application - https://medium.com/@saikarthik952/ludo-game-systems-design-493cca866612
+
+
+--------------------------------
+
+Q1)WAP to display  City and temprature in decending order of max temprature and if duplicate record present choose the max temprature record.
+sample input:
+Temprature.txt
+
+Date,CityName,Min_Temprature, Max_Temprature
+2020-01-01,Delhi,4,21
+2020-01-01,Mumbai,4,23
+2020-01-01,Delhi,4,25
+2020-01-01,Mumbai,4,20
+2020-01-01,Nashik,4,59
+2020-01-01,Nashik,4,48
+2020-01-01,Pune,4,30
+
+Output:
+date=2020-01-01, city=Nashik, minTemp=4, maxTemp=59
+date=2020-01-01, city=Pune, minTemp=4, maxTemp=30
+date=2020-01-01, city=Delhi, minTemp=4, maxTemp=25
+date=2020-01-01, city=Mumbai, minTemp=4, maxTemp=23
+
+Programe: below programe not a feasible sollution. Interviewer interested in sollution with groupingBy in java 8 
+ANS:
+public class Test8 {
+
+	
+	public static void main(String[] args) throws IOException {
+
+		Map<String , Temprature>  tempMap= new HashMap<>();
+		File f = new File("src//temprature.txt");
+		BufferedReader br = new BufferedReader(new FileReader(f));
+		String line;
+		while((line =br.readLine()) !=null){
+			String[] records =  line.split(",");
+			Temprature t = new Temprature(records[0],records[1], Integer.valueOf(records[2]),  Integer.valueOf(records[3]));
+			if(tempMap.containsKey(records[1])){
+				if(tempMap.get((records[1])).getMaxTemp() < Integer.valueOf(records[3])){
+					tempMap.put(records[1], t);
+			}
+			}
+			else{
+				tempMap.put(records[1], t);
+			}
+		
+		}
+		tempMap.entrySet().stream().sorted((t1,t2)-> t1.getValue().getMaxTemp() > t2.getValue().getMaxTemp() ? -1: 1).forEach(System.out::println);
+	}
+
+}
+
+class Temprature {
+	String date;
+	String city;
+	int minTemp;
+	int maxTemp;
+	
+	public Temprature(String date, String city, int minTemp, int maxTemp) {
+		super();
+		this.date = date;
+		this.city = city;
+		this.minTemp = minTemp;
+		this.maxTemp = maxTemp;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public int getMinTemp() {
+		return minTemp;
+	}
+	public void setMinTemp(int minTemp) {
+		this.minTemp = minTemp;
+	}
+	public int getMaxTemp() {
+		return maxTemp;
+	}
+	public void setMaxTemp(int maxTemp) {
+		this.maxTemp = maxTemp;
+	}
+	@Override
+	public String toString() {
+		return "Temprature [date=" + date + ", city=" + city + ", minTemp=" + minTemp + ", maxTemp=" + maxTemp + "]";
+	}
+	
+	
+}
+
+----------------------------------------
+
+Q2:WAP to find first non repeating character from String and print it if no non repeating character present then print null or some acknowledgement.
+sample input: aabbssggfjjkmf
+Output: k
+
+public class Test7 {
+
+ANS:	
+public static void main(String args[]){
+	
+	Set<Character> chars = new HashSet<>();
+	List<Character> nonRepeating = new ArrayList<>();
+	String pattern = "aabbssggfjjkmf";
+	for(int i=0; i < pattern.length();i++  ){
+		if(chars.contains(pattern.charAt(i))){
+			nonRepeating.remove((Object)pattern.charAt(i));
+		}else{
+			chars.add(pattern.charAt(i));
+			nonRepeating.add(pattern.charAt(i));
+		}
+	}
+	if(nonRepeating.size() > 0){
+		System.out.println("first non repeated element would be ="+nonRepeating.get(0));
+	}else{
+		System.out.println("non repeating element not found");
+	}
+}
+}
+
+---------------------------------
+
+Q3:WAP to print stock with max quantity if duplicate stock present combine the quantity to find the max quantity stock
+sample input: 
+IBM,100
+Accenture,200
+Microsoft,250
+IBM,200
+
+OutPut:
+IBM,300
+
+ANS:
+public class Test9 {
+
+	public static void main(String[] args) {
+		Stock ss1 = new Stock("IBM", 100);
+		Stock ss2 = new Stock("Accenture", 200);
+		Stock ss3 = new Stock("Microsoft", 250);
+		Stock ss4 = new Stock("IBM", 200);
+		List<Stock> stocks = new ArrayList<>();
+		stocks.add(ss1);
+		stocks.add(ss2);
+		stocks.add(ss3);
+		stocks.add(ss4);
+		
+		Map<String, Integer> map = stocks.stream().collect(Collectors.groupingBy(Stock::getStockName, Collectors.summingInt(Stock::getQuantity)));
+		Entry<String, Integer>	finalEntry= map.entrySet().stream().max((e1,e2)-> e1.getValue() > e2.getValue() ? 1:-1).get();
+		System.out.println(finalEntry);
+	}
+
+}
+
+class Stock{
+	
+	String stockName;
+	int quantity;
+	public String getStockName() {
+		return stockName;
+	}
+	
+	public Stock(String stockName, int quantity) {
+		super();
+		this.stockName = stockName;
+		this.quantity = quantity;
+	}
+
+	public void setStockName(String stockName) {
+		this.stockName = stockName;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+}
+
+---------------------------------
+
+Q4: WAP to print all combination number present in given array whos addition is 7.
+Sample Input:3,0,5,2,4,7,9
+
+Output:
+3,4
+0,7
+5,2
+
+ANS: below program has Time complexcity O(n^2) which not the feasible solution. interviewer more interested in more feasible solution.
+
+---------------------------------
+
+Q5: WAP to print multiplication of other number in array without including the indexed number for all indexed.
+Sample input: 1,2,3,4
+sample output: 24,12,8,6  
+
+public class Test11 {
+ public static void main(String args[]){
+	 int[] arr = {1,2,3,4};
+	 
+	 int multValue = 1;
+	 for(int i=0;i<arr.length;i++){
+		 multValue= arr[i] * multValue;
+	 }
+	 for(int i=0;i<arr.length;i++)
+	 	System.out.println(multValue/arr[i]);	 
+ }
+}
+
+---------------------------------
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.Map.*;
+class Temprature {
+	String date;
+	String city;
+	int minTemp;
+	int maxTemp;
+	
+	public Temprature(String date, String city, int minTemp, int maxTemp) {
+//		super();
+		this.date = date;
+		this.city = city;
+		this.minTemp = minTemp;
+		this.maxTemp = maxTemp;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public int getMinTemp() {
+		return minTemp;
+	}
+	public void setMinTemp(int minTemp) {
+		this.minTemp = minTemp;
+	}
+	public int getMaxTemp() {
+		return maxTemp;
+	}
+	public void setMaxTemp(int maxTemp) {
+		this.maxTemp = maxTemp;
+	}
+	@Override
+	public String toString() {
+		return "Temprature [date=" + date + ", city=" + city + ", minTemp=" + minTemp + ", maxTemp=" + maxTemp + "]";
+	}
+}
+
+public class Main
+{
+public static void main(String[] args) {
+
+        Temprature t1 = new Temprature("2020-01-01", "Nashik", 4, 59);
+        Temprature t2 = new Temprature("2020-01-01", "Pune", 4, 30);
+        Temprature t3 = new Temprature("2020-01-01", "Delhi", 4, 25);
+        Temprature t4 = new Temprature("2020-01-01", "Mumbai", 4, 23);
+        Temprature t5 = new Temprature("2020-01-01", "Pune", 4, 35);
+        
+		List<Temprature> temp = new ArrayList<>();
+		temp.add(t1);
+		temp.add(t2);
+		temp.add(t3);
+		temp.add(t4);
+		temp.add(t5);
+		
+		Map<String, Temprature> map = temp.stream().collect(Collectors.groupingBy(
+		Temprature::getCity,
+		 Collectors.collectingAndThen(Collectors.reducing((Temprature d1, Temprature d2) -> d1.getMaxTemp() > d2.getMaxTemp() ? d1 : d2),Optional::get)));
+ 	
+// 		Entry<String,Temprature> finalEntry = map.entrySet().stream().max((e1,e2)-> e1.getValue().getMaxTemp() > e2.getValue().getMaxTemp() ? 1:-1).get();
+        System.out.println(map);
+	}
+}
+
+-------------------------------------
+Q) index of substring in a string without using any predefined methods
+
+internal bool SearchWord(string str, string searchKey)
+{
+    int j = 0; bool result = false;
+    for (int i = 0; i < str.Length; i++)
+    {
+        if (searchKey[j] == str[i])
+        {
+            j++; //count++;
+        }
+        else { j = 0; }
+
+        if (j == searchKey.Length)
+        {
+            result = true;
+            break;
+        }
+    }
+    return result;
+}
+
+--------------------------------------
+
+9 8 9 
+    2
+
+
+Wap : given an input  integer array and a Number K . Add K to last element in array.
+* Need to check on boundary conditions like if there is carry forward it should be added to previous elements rather than making  an element as 2digit
+
+static int calSumUtil(int a[], int b[],
+                                int n, int m)
+    {
+        // array to store sum.
+        int[] sum= new int[n];
+     
+        int i = n - 1, j = m - 1, k = n - 1;
+     
+        int carry = 0, s = 0;
+     
+        // Until we reach beginning of array.
+        // we are comparing only for second
+        // array because we have already compare
+        // the size of array in wrapper function.
+        while (j >= 0)
+        {
+            // find sum of corresponding element
+            // of both array.
+            s = a[i] + b[j] + carry;
+             
+            sum[k] = (s % 10);
+     
+            // Finding carry for next sum.
+            carry = s / 10;
+     
+            k--;
+            i--;
+            j--;
+        }
+     
+        // If second array size is less
+        // the first array size.
+        while (i >= 0)
+        {
+            // Add carry to first array elements.
+            s = a[i] + carry;
+            sum[k] = (s % 10);
+            carry = s / 10;
+     
+            i--;
+            k--;
+        }
+     
+        int ans = 0;
+     
+        // If there is carry on adding 0 index
+        // elements  append 1 to total sum.
+        if (carry == 1)
+            ans = 10;
+     
+        // Converting array into number.
+        for ( i = 0; i <= n - 1; i++) {
+            ans += sum[i];
+            ans *= 10;
+        }
+     
+        return ans / 10;
+    }
+
+input file // 3 col // city name // date // temperature //
+
+4 city - 12 month  - 
+
+find the max temperature with per city in that whole number
+ascedning order (temperature)
+
+
+class Temperature implements Comparable{
+	String city;
+	String date;
+	int temp;
+
+	//getter and setter
+	// constrcutor()
+
+	@Overide
+	public int compareTo(Temperature o1){
+		return this.temp - o1.temp;
+	}
+}
+
+
+File f = new File("");
+//	Hashmap<String, Temperature> hmap = new Hashmap<>();
+	List<Temperature> l = new ArrayList<>();
+while(br){
+	Temperature t1 = new Temperature(cityName,date,temp);
+	l.add(t1);
+
+}
+//	hmap.put(cityName,t1);
+
+	ArrayList<Temperature> final = l.stream().collect(Collectors.groupingBy(
+	Temperature::getCity,
+	Collectors.CollectingAndThen(Collectors.Reducing(max(Temperature t1, Temperature t2)-> t1.getTemp() > t2.getTemp()? t1 : t2),
+	optional::get()
+	))
+
+// comparator
+
+	public static Comparator<Temperature> order = new Comparator<Temperature>({
+		@Override
+		public int compare(Temperature o1, Temperature o2){
+			o1.getTemp().compareTo(o2.getTemp());
+		}
+	})
+
+Arrays.sort(final,order);
+
+
+
+list of Integer : target sum - 
+
+1,3,7,5 - target = 10
+
+o/p 7,3
+not in sorting order
+
+2 approaches:
+
+1) sorting + binary search - O(nlogn) , space O(1)
+
+2) Hashmap time-O(n) space-O(n)
+
+int length = 4;
+for(int i=0;i<length)
+
+------------------------------
+List = 9,8,9 
+int k = 3
+o/p : 9,9,2
+
+
+sum = 9+3 = 12 
+carry = 12/10 = 1
+temp = sum%10; 2 
+
+_ _ 2_
+
+
+sum = 8+carry = 12 
+carry = 12%10 = 2
+temp = sum/10; 2 
+
+_ _ 2_
+
+
+list1 > list2 
+list1 = 9,8,9    i 
+list2 = 0,1,2      j
+
+
+list1 = max
+
+while(i>=0){
+	sum = list1(i) + list2(j) + carry;
+	carry = sum/10;
+	list1(i) = sum%10; 
+	i--;
+	j--;
+//	k--;
+}
+
+001
+carry = 1
+
+if(carray !=0){
+	list.add(carry,0);
+}
+
+1) 
+i = 3
+9+2+0 = 11
+
+-----------------------
+
+
+class PriorityQueue<> {
+
+	class Node implements Comparable{
+		int key;
+		Object value;
+
+		Node(int key, int value){
+			this.key = key;
+			this.value = value;
+		}
+
+		@Override
+		public int compare(Node N){
+			return this.key - N.key;
+		}
+	}
+
+	List<Node> list = new ArrayList<>();
+	public void push(int key , int value){
+		list.add(N);
+	}
+
+	public void pop(){
+		Arrays.sort(list);
+		list.remove(0);
+	}
+
+	Node n1 = new Node(1,"A");
+	Node n2 = new Node(2,"A");
+	Node n3 = new Node(3,"A");
+
+	list.add(n1);
+	list.add(n2);
+	list.add(n3);
+
+	Arrays.sort(list);
+}
+
+
+class Address{
+	private final int houseNo;
+	private final String city;
+
+	Address(int houseNo)
+}
+class Employee{
+	private final int id;
+	private final String name;
+	private final List<Address> address
+
+	Employee(int id, Stirng name, List<Address> add){
+		this.id = id;
+		this.name = name;
+
+		//deepcopy
+		Iterator<Address> it = new iterator<Address>();
+			while(it.hasnext()){
+				Address temp = it.next();
+				address.add(temp;)	
+		}
+
+	}
+
+}
+List<Address> address = new Array
+
+
+final list<Integer> a=new ArrayList<>(1,2,3);
+
+
+a.add(4);
+
+Employee e1 = new Emplotee(1,"Vishal","19-oct-2021");
+Employee e2 = new Emplotee(1,"Vishal","19-oct-2021");
+ 
+Map m = new HashMap();
+m.put(e1,e1);
+m.get(e2)
+
+
+---------------------------------------
+
+
+/******************************************************************************
+
+                            Online Java Compiler.
+                Code, Compile, Run and Debug java program online.
+Write your code in this editor and press "Run" button to execute it.
+
+*******************************************************************************/
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.Map.*;
+class Stock{
+    String StockName;
+    int Quantity;
+    Stock(String StockName, int Quantity){
+        this.StockName = StockName;
+        this.Quantity = Quantity;
+    }
+    public String getStockName(){
+        return StockName;
+    }
+    public int getQuantity(){
+        return Quantity;
+    }
+}
+public class Main
+{
+public static void main(String[] args) {
+		Stock ss1 = new Stock("IBM", 100);
+		Stock ss2 = new Stock("Accenture", 200);
+		Stock ss3 = new Stock("Microsoft", 250);
+		Stock ss4 = new Stock("IBM", 200);
+		
+		List<Stock> stocks = new ArrayList<>();
+		stocks.add(ss1);
+		stocks.add(ss2);
+		stocks.add(ss3);
+		stocks.add(ss4);
+		
+		Map<String, Integer> map = stocks.stream().collect(Collectors.groupingBy(
+		Stock::getStockName, 
+		Collectors.summingInt(Stock::getQuantity)));
+
+		Entry<String, Integer>	finalEntry= map.entrySet().stream().max((e1,e2)-> e1.getValue() > e2.getValue() ? 1:-1).get();
+		System.out.println(finalEntry);
+	}
+}
+
+o/p :
+IBM 300
+Microsoft : 250
+Accenture : 200
+
+
+----------------
+ｷ	You are using a class from a library (say Student). You have a list of Student objects. You need to sort this list based on first name. How will you do it? Constraint: (You do not have the ability to change the source code of the Student class)
+
+ｷ	Consider a class Person with two attributes - String name and List<String> degrees. How will you make this class immutable. Ask what are the advantanges of immutable classes
+
+ｷWe have a Parent class with 2 methods walk and run. 
+We have a child class which overrides both the methods. Both child class methods just call their respective Super implementation. 
+Parent class run method calls walk(). 
+class Parent Parent p = new Child(); 
+p.run(); 
+Tell the order in which each method is called
+Answer : 
+child walk() -> parent walk() -> child run() -> parent run() -> parent walk().
+
+ｷ	Explain what the following command does on Unix: chmod 764 file1
+
+ｷ	We have a table called BookAuthor. It has two columns Book and Author, Book being unique column. Write a query to find the names of the authors who have written more than 10 books.
+
+ｷ	Given an array of n integers and a number k, find the pairs of numbers in the array such that the difference between the pair is k. Find the optimal solution with and without extra storage
+
+
+ｷ	Longest Even Length Word: Write a function to return the longest even length word in a sentence. Sample input: Be not afraid of greatness, some are born great, some achieve greatness, and some have greatness thrust upon them.
+
+
+ｷ	Given a List of integers (List<Integer>), write code in Java 8 style to get the sum of the squares of all the odd numbers in the array.
+List<Integer> squaresList = numbers.stream().filter(i -> i%2!=0).map( i -> i*i).collect(Collectors.toList());
+		System.out.println(squaresList);
+		
+ｷ	What is the difference between HashMap and ConcurrentHashMap? Follow up with - what is the difference between CHM and synchronized Map.
+
+ｷ	Consider a class A with a synchronized method class A { public void synchronized m1() {Thread.sleep(5000);} } We create two objects of this class - o1 and o2. We call o1.m1() on one thread and o2.m1() on another thread, at the same time. What will be the behaviour? Follow up with - how will you force these calls to execute one after the other
+
+
+
+
+

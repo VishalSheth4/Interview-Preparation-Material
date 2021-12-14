@@ -1,0 +1,1779 @@
+JAVA
+MULTITHREADING
+SYNCHRONIZATION
+DESIGN PATTERN
+OOPS
+JVM
+
+ARRAY - done
+STACK
+QUEUE
+LINKEDLIST
+SEARCHING AND SORTING
+BINARY TREE
+BINARY SEARCH TREE
+
+System Design
+Hibernate
+Spring boot - mvc
+microservice architecture
+Restful api
+
+-------------------------------------
+why java is not 100% object oriented ?
+- because of primitive data type - boolean, int, char, flaot, double, long,short
+- To make them OO we have wrapper classes
+
+Why pointers are not allowed in java?
+- Unsafe
+- Increase the complexity
+- JVM is responsbile for implicit memory allocation, thus in order to avoid dirct access to memory
+by the user, pointers are discourged in Java.
+
+What is JIT compiler in Java?
+Java source Code -> JDK(javac.exe) -> Byte code -> JRE(Interpreter + JIT COMPILER)
+- performance optimization done at run time - bcoz interprter is slow
+
+String is immutable in java?
+- string pool require string to be not changeeable by it s reference otherwise it is changed from anywhere
+- security
+
+what is marker interface (Empty Interface)?
+the interface having no data memeber and member function but it posses some properties
+- i.e. Serializable, Cloneable
+
+can u override a private or static method in java?
+- No
+- private will not inherited 
+- static - method hiding
+
+does finally always execute in java?
+- yes
+- But not in following cases ?
+- System.exit()
+- system crash
+
+What methods does the object class have ?
+java.lang.Object 
+
+- clone() - create and returns a copy of this Object
+- equals(Object obj) - Indicates some other object is Equal to this one.
+- finalize() - Called by the garbage collector on an object when garbage collector determinees that there are no more reference to the object. 
+- getClass() - Returns the runtime class of an object.
+- hashCode() - returns a hashcode value of an object
+- toString() - return a string representation of the object.
+
+- notify()
+- notifyAll()
+- wait()
+- wait(long timeout)
+- wait(long timeout, int nanos)
+
+How can you make a class immutable ?
+- declare the class final so it cannot be extended
+- make all fields private so direct access is not allowed
+- do not provide setter method for variable
+- make variable as final
+- intialize all the fields via a constructor performing a deepcopy
+- perform cloning of objects in the getter method to return a copy rather than returning the actual object reference.
+
+What is singleton class
+- one instance can be created at any given time in one JVM.
+- private static instance
+- static block{ return instance}
+
+------------------------------------------------
+------------------------------------------------------------------
+
+JDK involves its phycial existence found in bin folder.
+.java -> .class file -> bytecode
+jdk consists of JRE and JVM
+
+classloader - loads .class file
+3 types of classloader follow top to bottom way.
+bootstrap - lib/rt.jar - inbuilt library
+extension - jre/lib/ext
+application - own classPath
+
+
+byteCodeVerifer - verify the byteCodes
+
+
+
+JVM memory consists of
+    Class Area - class structure, method,definition
+    Heap - newly created object
+    Stack - recursion, 
+    Pc register - address of current execution instruction  
+    Native memory - native library
+
+    Execution engine 
+
+    JIT -  
+    Interpreter - interpret line by line in to machine code (slow)
+    Garbage Collector - works only on Heap memory
+
+Exception Propogation - while getting error in debug I found exception proogation
+In stack if top of stack not caught exception it goes down to stack and find if caught or not
+
+---------------------------------------
+SQL 
+
+-- Third highest salary (index staring from 0)
+
+- select MAX(salary) from Employee where salary < 
+(select MAX(salary) from Employee)
+- select salary from Employee ORDER BY DESC limit 2,1;
+
+-- What are the indees with example?
+
+- Indexes are databse object which help in retrieving record quickly and more effictively. Column indexes can be created on both Tables and Views.
+Clustered index - more than 2 index
+
+- CREATE INDEX INDEX_NAME ON TABLE_NAME(COL1, COL2)
+- DROP INDEX INDEX_NAME ON TABLE_NAME
+
+INDEX WORK Data structure is : 
+B+ Tree
+HASH TABLE
+BITMAP INDEX 
+
+Dis-advantage of Index
+Additional Space
+Everytime update when table change 
+
+Q) drop a table, does it drop related object like
+constraints, indexes, columns, default, views and stored procedure ?
+
+YES - it drops related objects, constraints, indexes, columns, defaults etc
+
+NO - views and sorted procedure as they exist outside the table
+
+---------
+SQL TUNING ----
+
+- SELECT fields instead of using SELECT *
+- Avoid SELECT DISTINCT
+- To prevent creating a Cartesian Join, use INNER JOIN instead:
+- Use WHERE instead of HAVING to define filters
+
+- Use wildcards at the end of a phrase only
+-  SELECT City FROM CustomersWHERE City LIKE ‘%Char%’
+-  SELECT City FROM CustomersWHERE City LIKE ‘
+Char%’
+
+- Use LIMIT to sample query results
+
+- Run your query during off-peak hours
+
+----------------------------------------------
+REStFUL Web Services
+
+Q) What is Rest and RESTFUL
+- REST - Representational State Transfer
+- RESTFUL - webservices
+
+
+R- GET - Ftching details  , read operation
+C- POST - Creating new resources on the server
+U- PUT - update the old/existing resource - replace
+D- DELETE - delete
+
+PATCH - modifying the resource on the server.
+OPTIONS - fetches the list of supported options of resources present on the server.
+
+POST and PATCH - neither safe nor idempotent
+GET,HEAD,OPTIONS - safe and idempotent
+PUT and DELETE - only idempotent
+
+What are the features of RESTFUL web Services ?
+
+- Service is based on Client-server model
+- HTTP protocol for fetching resource,query execution
+- Messaging is used to communicate client and server
+- Resources are accessible to the service by means of URI's
+protocol_name/service_name/resource_type/reosurce_Id
+
+- statelessness concept - where client request and response are not dependnet on others.
+
+- Also provide caching to minimize the server calls
+
+Q) what is the concept of statelessness in REST ?
+as per REST architecture, RESTFUL web-servcies should not keep a client state on server. this restriction is called statelessness.
+it is responsibility of the client to pass its context to server and then server store this context to process further request.
+
+For Example : session maintained by server is identified by session identifier passed by the client.
+
+Q) what are the disadvantages of REST web-service?
+- session can not be maintained
+- it works on HTTP , there can not be asynchronous calls.
+- there is not contract between client and server
+
+----------------------------------------------
+Difference between ArrayList and LinkedList
+ArrayList 
+Dynamic use of array
+searching is fast
+use as a list 
+
+LinkedList
+double Linkedlist is used
+manipulation is fast
+use as linkedlist and queue (Dequeue interface is used)
+
+-------
+Lazy Intialization in Hibernate?
+Load the data when required at runtime. unwanted databse hit.
+
+-------
+First level and second level cache
+
+first level - default is active
+it is associated with session
+when session.close() first level data will be lost
+accessible to that session only
+
+
+second level - need to active
+it is associated with sessionFactory
+accessible to whole program
+
+---------
+HashMap and Hashtable
+
+Hashmap
+not synchronized , not safe, fast
+Iterator , not failfast
+
+
+hashtable
+synchronized, safe, slow
+Enumerator, Iterator , failFast
+
+-------------------------------------
+MULTITHREADING
+
+multitasking vs MULTITHREADING: 
+Process based multitasking
+Thread based multitasking
+
+Thread based is better than Process based
+i.e. context Switching, light weight sub process
+
+PArent Thread : main thread which is always run by JVM
+
+Q) Types of Threads
+User Threads - create by user
+Daemon Threads - low priority, ie. garbage collector, finalize()
+
+Q) How user create Threads
+Extending the thread class
+implementing the Runnable Interface
+
+Q) DAEMON THREAD:
+
+Thread t = new Thread(s);
+t.setDaemon(true);
+
+JVM will not wait for daemon thread to complete while it wait for user ThREAD
+
+Q) t.start() - a new thread will be created which is responsible for the execution of run() methods
+
+t.run() it will run as normal method sequentially
+
+Q) Task of the thread Scheduler
+Register the thread with thread Scheduler
+call run method
+
+Q) what if we do not override Run methods?
+Thread run class will be called and we do not get any output.
+
+Q) How can we overload run method() ?
+No, by the passing arguments
+but it will call actual run() method or no argument run method
+
+Q) Can we overide start() method ?
+- no intialization will bbe done by thread class for you.
+- Run is also not called
+- Even new thread too is not created
+
+Q) Can we restart the same thread again ?
+- NO 
+- get java.lang.IllegalStateException
+- cannot be possible too with super.start() in run method
+
+------------------------------------------------------
+Comparable and Comparator
+
+- to sort the custom objects
+- the custom objects should implements Comparable<Employee> interface and need to override compareTo()
+
+- public static Comparator<Employee> NC = new Comparator<Employee>(){
+    @override
+    public int compare(Employee e1, Employee e2){
+        return e1.getName().compareTo(e2.getName());
+    }
+};
+
+
+Arrayssort(empArr,Employee.NC)
+
+
+------
+Arrays.sort() // it compare int array
+
+Employee implements Comparable -- need to override compareTo() // still sort int array
+
+public static Comparator {}; // override compare() method can sort strng also 
+
+--Comparable : Default natural sorting Order : java.lang package : compareTo() : all wrapper class and String class 
+
+-- Comparator : Customized sorting order : java.util package : compare() and equals() : Collator, RulebasedCollator, customized Objects.
+
+-----------------------------------
+GARBAGE COLLECTOR
+
+automatic process which look into heap memery for looking out for unused/un-referenced objects
+it does automatic memory allocation and deallocation.
+
+Q) where are objects created in memory ?
+
+whenever object created is created, it always stored in heap and stack contians its reference
+stack contains local primitve and reference variable to objects in heap space.
+
+Q) which part work on garbage collector ?
+Heap
+
+Q) Manage garbage collector ?
+JVM decides when memeory running low
+
+Q) how can we request garbage collection be requested ?
+2 ways
+
+call the system class System.gc() which will request JVM to perofrm GC
+RunTime.getRuntime().gc(); // runtimeclass which is singleton class
+
+Q) How we elegible the garbage collector();
+
+- Null
+- unreferenced 
+- ISlands of Isolation 
+
+ Q) purpose of Overriding
+
+- just to conplete some task manually 
+-----
+A) Only one time the garbage collector call the finalize() method for an Object
+
+Q) how garbage collect works ?
+1) MAkring of un referneced objects
+2) Deletion (normal + compaction )
+
+Q) Commonly used Oracle JVM & which GC strategy is used by it?
+HOTSPOT implements generational GC strategy
+
+Q) Generationl Garbage strategy
+
+bcoz most of the object are short lived this is called DIE YOUNG
+
+Q) Generationl GC strategy and hotspot Heap structure used by these GC ?
+
+Heap area is divided into 3 sections
+Young generational (s0,s1,eden) survivor stage
+Tenured generational 
+Permananent Generationl
+
+
+-----------------------------------------------
+what are the different ways we break singleton pattern ?
+
+reflection
+serialization
+Cloning
+By executor service
+
+Q) ClassNotFoundException Vs NoClassDefFoundError ?
+
+ClassNotFoundException : Exception - it occurs when an application tries to load a class
+at runtime which is not updated in the classPath.
+
+NoClassDefFoundError : Error - it occurs when java runtime system does not find a class definition
+which is present at compile time but missing at runtime
+
+Q) Apart from string what else predefined class we can use as KEys in a Map?
+
+Integer and wrapper class
+
+Q) Given an employee list, sort employee,  (salary) by desc order ?
+
+empList.stream().sorted(o1,o2) -> (o2.getSalary()-o1.getSalary()).collect(Collector.toList());
+
+Q) Fetch top 3 salary ?
+
+empList.stream().sorted(o1,o2) -> (o2.getSalary()-o1.getSalary())
+.limit(3)
+.collect(Collector.toList());
+
+Q) Fetch all employee having salary less than 3rd highest salary ?
+
+empList.stream().sorted(o1,o2) -> (o2.getSalary()-o1.getSalary())
+.skip(3)
+.collect(Collector.toList());
+
+Q) why character array is prefered over string for passwords?
+Bcoz of string pool contains string untill garbage collector
+
+Q) latest enhancement in HashMap done in java 1.8 ?
+Earlier it using linked list in hashmap so sometime it takes O(n) to SEARCH value in LL 
+now it using Balancced tree and it O(log n) to search 
+
+Q) what is optional class ?
+container type . wheather is 0 if null or 1 if not null 
+isPresent()
+get()  
+
+just to prevent null pointer exception.
+
+Q) different type Factory and Abstract Factory Pattern ?
+Factory single level object creation 
+Abstract Factory second level object creation 
+
+
+
+
+Q) Map and flatMap in Java 8 ?
+
+
+----------------------------------------
+Equals and Hashcode contracts ?
+
+- If two objects are equal according to the Equals(Object o) method then the hash code 
+for both the object must be the same. 
+
+- It is not necessary that if you have same hashcode for 2 object means those two object 
+are equal. This is collision. Better hash function prevents this . 
+
+- the hashcode must consistently return the same integer 
+
+
+---------------------------------------
+Serialization
+---------------------------------------
+- Introduction
+- Object Graph in serialization
+- Customized serialization
+- serialization with inheritance
+- externalization
+- serialVersionUID
+
+VIDEO-1 Introduction
+
+the process of saving state of an object. 
+
+- the process of convert an object from java supported form into
+file state/ network state form is called serialization.
+
+- the process of convert an object file state/ network state form
+from java supported formis called de-serialization.
+
+How to write an object into file ?
+Using FileOutputStream and ObjectOutputStream classes we can implement serialization 
+ObjectOutputStream.writeObject(d1);
+
+
+File Extension is not compulsory.
+
+De-serialization - read file into object
+Using FileInputSream and ObjectInputStream class. 
+ObjectInputStream.readObject();
+
+---- CODE 
+class DOG implements serializable{
+    int i;
+    int j;
+}
+--- Serialization ---
+Class Main{
+    PSVM(String args[]){
+        FOS fos = new FOS("abc.scr");
+        OOS oos = new OOS(fos);
+        oos.writeObject(d1);
+
+        --- DE-SERIALIZATION ---
+        FIS fis = new FIS("abc.scr");
+        OIS ois = new OIS(fis);
+        DOG d1 = (DOG)ois.readObject();
+    }
+}
+ 
+we can serialize only serializable object. An object is set to be serializable
+if and only if the coresponding class implements serializable interface . 
+It presents in Java.io. package and it not does not contain any method called marker interface. 
+
+if we not implements serializable interface. get runtime exeception - notSerializable exception. 
+
+-- transient modifier applicable to - Variable. 
+
+JVM will ignore the original value transient variable and 
+it store default value in the file. 
+
+-- transient vs static 
+static variable is not part of object.
+so it will not participate in serialization  
+
+static transient int j = 20; is of no use. 
+
+-- final vs transient 
+final int x = 10; -- final variable will be replaced at compile time only. 
+final variable will be store in file in value form not in variable form. 
+hence decalaring final transient there is no impact. 
+
+Summary --
+int i=10;
+int j=20;     o/p: 10....20
+
+transient int i=10;
+int j=20;  o/p: 0.....20
+
+transient static int i=10;
+transient int j=20;   o/p: 10.....0
+
+transient int i=10;
+transient final int j=20;  o/p: 0....20
+
+transient static int i=10;
+transient final int j=20;    o/p: 10....20
+
+----------------------------------------------
+VIDEO - 2 multiple object serialization. 
+
+we can serialize the multiple objects but while de-serializing the 
+objects in which we serialize in the same order we can de-serialize the objects . 
+
+Class Main{
+    PSVM(String args[]){
+        FOS fos = new FOS("abc.scr");
+        OOS oos = new OOS(fos);
+        oos.writeObject(d1);
+        oos.writeObject(c1);
+        oos.writeObject(b1);                
+
+        --- DE-SERIALIZATION ---
+        FIS fis = new FIS("abc.scr");
+        OIS ois = new OIS(fis);
+        DOG d1 = (DOG)ois.readObject();
+        CAT c1 = (CAT)ois.readObject();
+        BAT b1 = (BAT)ois.readObject();
+    }
+}
+
+-- If we do not know the order of the objects ?
+
+    FIS fis = new FIS("abc.scr");
+    OIS ois = new OIS(fis);
+    Object o = ois.readObject();
+    if(o instanceof DOG){
+        DOG d1 = (DOG)o;
+    }else if(o instanceof CAT){
+        CAT c1 = (CAT)o;    
+    }
+
+-- Object Graph in serialization ?
+
+class DOG implements serializable{
+    CAT c = new CAT();
+}
+class CAT implements serializable{
+    RAT r = new RAT();
+}
+class RAT implements serializable{
+
+} 
+
+//SERIALIZE
+DOG d = new DOG(); // all 3 objects created.
+FOS fos = new FOS("abc.scr");
+OOS oos = new OOS(fos);
+oos.writeObject(d1);
+
+In serialization, the set of all object chaining will be seralize
+to the file. 
+the group of all object is Graph  serialization.
+
+//DE-SERIALIZE
+FIS fis = new FIS("abc.scr");
+OIS ois = new OIS(fis);
+DOG d1 = (DOG)ois.readObject();
+System.out.println(d1.c.r.j);
+
+// Every inherited class need to implement serilizable
+
+-------------------------
+
+VIDEO - 3 Customized serialization
+
+using transient keyword can loss of data.
+to recover the loss of data which is happen due to transient keyword
+that why we used customized serialization.
+
+How we implements customized serialization ?
+
+While seralizing do change in writeObject();
+1) private void writeObject(ObjectOutputStream) throws Exception
+
+while De-serailizing do change in readObject();
+2) private void readObject(ObjectInputStream) throws Exception
+
+This 2 method will call executed automatically by jvm. this 2 method are callback method.
+
+while performing whihc object to serializtion we have to do extra work 
+in the corresponding class we have to define above method.getRuntime
+
+while performing account serialization we have to define above methods.
+
+Code :
+
+class Account implements serializable{
+    String username = "Vishal";
+    transient String passwords = "vishal";
+
+    private void writeObject(ObjectOutputStream) throws Exception{
+        os.defaultWriteObject();
+        String epwd = "123"+passwords;
+        os.writeObject(epwd);
+    }    
+
+    private void readObject(ObjectOutputStream) throws Exception{
+    Is.defaultReadObject();
+    String epwd = (String)Is.readObject();
+    String pwd = epwd.subString(3);
+    }    
+}
+
+Class Main{
+    PSVM(String args[]){
+        FOS fos = new FOS("abc.scr");
+        OOS oos = new OOS(fos);
+        oos.writeObject(account);
+
+//        --- DE-SERIALIZATION ---
+        FIS fis = new FIS("abc.scr");
+        OIS ois = new OIS(fis);
+        Account d1 = (Account)ois.readObject();
+    }
+}
+
+---------------------------------
+
+VIDEO - 4 Customized serialization
+VIDEO - 5 Serialization w.r.t Inheritance
+
+-- If parent class implements serializable then child class
+also inherit the serializable nature.
+-- Object class does not implements serializable.
+-- If parent class not implements serializable and child class 
+implements serializable.
+JVM will ignore non serializable class and put default value.
+
+class Animal{
+    int i=888;
+}
+class Dog extends Animal implements serializable{
+    int j=999;
+}
+Class Main{
+    PSVM(String args[]){
+        FOS fos = new FOS("abc.scr");
+        OOS oos = new OOS(fos);
+        oos.writeObject(d1);
+
+    //    --- DE-SERIALIZATION ---
+        FIS fis = new FIS("abc.scr");
+        OIS ois = new OIS(fis);
+        DOG d1 = (DOG)ois.readObject();
+// NOTE : System.out.println(d1.i +" "+ d1.j);
+// O/P : 0 999;
+    }
+}
+
+At the time of deserializable, if any parent class
+is non serializable then JVM will seecure instance 
+control flow and share its instance varaible
+to the current object.
+
+JVM will always have no-argument constructor hence and 
+every non-serialiazble should compulsory contians
+default cosntructor or customized constructor.
+
+-----------------------------
+
+VIDEO - 6 Externalization
+-- In serialization, JVM will handle everything.
+-- In externalization Programmer will handle everything.
+
+-- Let suppose if we have 1 properties to serialize out of 1000 properties. 
+In serialization it serialize 1000 properties. 
+In externalization it serialize 1 properties if needed.
+
+class Account implements externalizable{
+
+}
+
+It contains 2 methods 1) writeExternal() 2) readExternal()
+externalizable is child interface of serializable interface
+
+CODE :
+class demo implement externalizable{
+    String s = "vishal";
+    int i = 90;
+    int j = 80;
+    . 
+    . 
+    .
+
+    public void writeExternal(ObjectOutputStream oos) throws Exception{
+        oos.writeObject(s);
+        oss.writeInt(i);
+    }
+
+    public void readExternal(ObjectInputStream ois) throws Exception{
+        s = (String)ois.readObject()
+        i = ois.readInt();
+    }
+}
+
+class main{
+    demo d = new demo();
+    FOS fos = new FOS("abc.src");
+    OOS oos = new OOS(fos);
+    oos.writeObject(d);
+}
+
+transient keyword will not play any role in externalization.
+
+Difference between Serialization and Externalization
+
+serialization : Default serialization
+JVM control
+total properties/variable serializable
+reliability, performance low
+marker Interface
+transient key play role
+not required to public no-args
+
+externalization : Customized serialization
+Programmer control
+total, part of serializable
+reliability, performance low
+not a marker interface 
+transient keyword play no role
+while de-seriaization compulsory public no-arg method
+
+VIDEO - 7 SerialVersionUID 
+
+reciever and sender both have .class file 
+just state of an object in travel from sender to reciever.
+
+private static final long serialversionUID = 1l;
+
+
+-------------------------------------------
+-------------------------------------------
+
+MULTITHREADING
+
+VIDEO - 1 --- Introduction
+TOPIC :
+    Introduction
+    Ways to define a thread. 
+     By extending the thread class 
+     By implementing Runnable Interface 
+
+    Getting and setting name of Thread 
+    Thread Priorities 
+    The method to prevent thread Execution. 
+        yield(), join(), sleep(), 
+
+    SYNCHRONIZATION      
+    Inter ThREAD communication
+    DeadLock 
+    Daemon Threads 
+    MULTITHREADING enhancement
+    JAVA 8 enchancement.
+
+-- Multitasking 
+
+Process based multitasking - Executing several task simultaneously and 
+each task possess seperate independent space.
+Typing a Java Program , Listen music , download File
+
+Thread Based Multitasking - executing several task simultaneously
+where each task possess seperate independent part of seperate of program. 
+-Best suitable for programmer level
+
+-To reduce process ideal time, to increase process task. 
+-To develop multi media graphics, to develop video games
+
+JAVA provide rich support (Thread Runnable, Thread Group)
+
+
+VIDEO - 2 ----- Ways to define thread, Thread Scheduler
+
+Thread - seperate flow of execution
+2 ways to deifne the class 
+- extending the Threads class - implementing Runnable interface
+
+CODE :
+
+class MyThread extends Thread{
+    public void run(){
+        for(int i=0;i<10;i++){
+            Sout("Child Thread");
+        }
+    }
+}
+
+class ThreadDemo{
+    PSVM(String[] args){
+        MyThread t = new MyThread();
+        t.start(); // starting of the thread. child thread will run Mythread class
+
+        // main thread will handle below part.
+        for(int i=0;i<10;i++){
+            Sout("Main Thread");
+        }
+    }
+}
+
+Every java program contains one main thread. 
+Thread Scheduler is a part of JVM it is responsible to 
+Schedule thread. if multiple threads are waiting to get change of execution then 
+in which order thread execution is schedule by thread scheduler . 
+order is not predictable it is depend on/vary on OS . 
+
+CASE 1) diff b/w t.start() and t.run()  
+t.start() new thread will create  
+t.run() it will run as a normal method call  
+
+CASE 2)
+t.start(){
+    Register this thread with thread scheduler 
+    Perform all other mandatory activity 
+    Invoke() run method 
+}
+
+CASE 3) Overloading of run Method 
+class MyThread extends Thread {
+    public void run(){
+        sout("no-args method");
+    }
+    public void run(int i){
+        sout("int args method");
+    }
+}
+
+class ThreadDemo {
+    PSVM(String[] args){
+        MyThread t = new MyThread();
+        t.start();
+    }
+}
+
+o/p : it will call no args run method 
+int i method need to be call explicitly.
+
+CASE 4) If we not overriding run method ? 
+o/p : 
+no output 
+not overiding run method we are mis using the mutli threading concept. 
+
+CASE 5) Overiding start() method 
+then our start() method just like normal method call and new thread will not be created. 
+not recommended to override to start() method
+
+
+CASE 6) 
+
+class MyThread extends Thread {
+    public void start(){   -- // main thread
+        super.start();
+    }
+    public void run(){
+        sout("no-args method");
+    }
+}
+
+class ThreadDemo {
+    PSVM(String[] args){
+        MyThread t = new MyThread();
+        t.start();
+    }
+}
+
+Life Cycle
+1) New/Born - Thread t = new thread();
+t.start();
+2)Ready/Runnable
+if Thread Scheduler allocates process  
+3) Running
+If run() method complete
+4) DEAD 
+
+CASE 7) if we running same thread again : throw IllegalThreadStateException
+
+---------------------------------
+
+VIDEO - 3 Define a thread by implementing runnable interface 
+thread class constructors
+
+class myRunnable implements Runnable{
+    public void run(){
+        for(int i=0;i<10;i++){
+            sout("Child thread")
+        }
+    }
+}
+class ThreadDemo{
+    myRunnable r = new myRunnable();
+    Thread t1 = new Thread(r);
+    Thread t2 = new Thread(r);
+    t1.start();
+}
+
+CASE 1) t1.start() - thread will create 
+CASE 2) t1.run() - no new thread created, normal method call 
+CASE 3) t2.start() - create thread;
+CASE 4) t2.run() - normal method call 
+CASE 5) r.start(); - compile time error 
+CASE 6) r.run(); - normal method call 
+
+Thread class constructors
+
+- Thread t = new Thread();
+- Thread t = new Thread(Runnable r);
+- Thread t = new Thread(String name);
+- Thread t = new Thread(Runnable r, String name);
+- Thread t = new Thread(ThreadGroup g, String name);
+- Thread t = new Thread(ThreadGroup g, Runnalbe r);
+- Thread t = new Thread(ThreadGroup g, runnable r, String name);
+- Thread t = new Thread(ThreadGroup g, Runnable r, String name, long stackSize);
+
+Thread.currentThread().getName();
+Thread.currentThread().setName("Vishal");
+
+----------------------------------
+
+VIDEO - 4 Thread Priorities
+
+Thread.MIN_PRIORITY - 1
+Thread.NORM_PRIORITY - 5
+Thread.MAX_PRIORITY - 10
+
+
+VIDEO - 5 Prevent thread execution
+
+Yield()
+Join()
+sleep()
+
+Yield - causes to pause current executing thread to give chance for 
+waiting thread of same priority . 
+If there is no waiting thread or all waiting threads have low priority 
+then same thread can continue it is execution. 
+
+not prediction of waiting thread get change it depend on threadscheduler/ JVM. 
+
+----
+public static native void yield();
+--- It transition from running state to Ready state/Runnable state 
+
+class MyThread extends Thread {
+    public void run(){
+        sout("Child thread");
+        Thread.yield();
+    }
+}
+
+class ThreadDemo {
+    PSVM(String[] args){
+        MyThread t = new MyThread();
+        t.start();
+        sout("Main thread");
+    }
+}
+
+// Main thread will run first then child thread method
+// if two thread have same priority then no order prediction
+
+-- join() 
+if your thread want to wait for another completion of thread.
+
+public final void join();
+public final void join(long ms);
+public final void join(long ms, int ns);
+
+-- It transition from running state to waiting 
+state(blocked for joining) 
+t2.join(), 
+t2.join(1000 ms), 
+t2.join(1000 ms, 3 ns);
+
+-- From waiting state to ready/runnable state 
+t2 complete ()
+time expires()
+waiting thread got interrupted  
+
+Note : compulsory throws InterruptedException.
+
+class MyThread extends Thread {
+    public void run(){
+        sout("Child thread");
+    }
+}
+class ThreadDemo {
+    PSVM(String[] args){
+        MyThread t = new MyThread();
+        t.start();
+        t.join();
+        sout("Main thread");
+    }
+}
+
+o/p : 
+Child thread
+Main thread 
+
+--------------
+
+class MyThread extends Thread {
+    static Thread mt;
+    public void run(){
+        try{
+            mt.join();
+        }catch{
+            sout("Child thread");
+        }
+    }
+}
+class ThreadDemo {
+    PSVM(String[] args){
+        MyThread.mt = Thread.currentThread();
+        MyThread t = new MyThread();
+        t.start();
+        sout("Main thread");
+    }
+}
+
+o/p :
+Main Thread 
+Child Thread 
+
+--------------
+
+Deadlock situation
+
+CASE 1) when main thread join to child and child join to main thread  
+CASE 2) Thread.currentThread().join();
+
+-------------
+Sleep 
+
+If a thread do not want to perform any operation 
+for particular amount of time then we should go for 
+sleep method 
+
+public static natve void sleep(long ms);
+public static native void sleep(long ms, int ns);
+
+it transit to sleeping state - 
+t.sleep(1000 ms);
+t.sleep(1000 ms, 3 ns);
+
+if sleeping thread Interrupted 
+
+public void interrupt();
+t.thread()
+
+--------------------------------
+
+VIDEO - 6 SYNCHRONIZATION
+
+Data Inconsistency Problem 
+synchronized is a modifier methods and blocks
+not for classes and variables.
+
+If mutli threads are trying to operate simultaneously
+on the same java object then there may be chance of data Inconsistency
+problem . 
+
+To overcome this problem synchronized keyword  
+If a method or block declare as synchronized then at a time 
+only one thread allow to execute that method or block on 
+the given object so that data Inconsistency problem will be 
+resolved. 
+
+It increase waiting time of thread - Problem.
+
+Synchronized Internally it is used lock concept. 
+
+Every object has a unique lock . 
+
+Acquire and release lock logic will handle by JVM
+
+While thread executing synchronized method on the given object 
+the remiainig thread are not allowed to run any synchronized 
+method simultaneously on the same object . But remaining thread 
+are allowed to execute non-synchronized method simultaneously
+
+-- Object has two area 
+1) non-synchronized by all threads   
+2) synchronized area - is access by only on thread at a time . 
+
+synchronized - update operation 
+non-synchronized - read operation 
+
+CODE : 
+
+class Display{
+    public synchronized void wish(String name){
+        for(int i=0;i<10;i++){
+            Sout("Good Morning...!");
+            try{
+                Thread.sleep(1000);
+            }catch (IO exception){ }
+            Sout("name");
+        }
+    }
+}
+class MyThread extends Thread{
+    Display d;
+    String name;
+    MyThread(String name, Dispaly d){
+        this.d=d;
+        this.name=name;
+    }
+    public void run(){
+        d.wish(name);
+    }
+}
+
+class SynchronizedDemo{
+    PSVM(String[] args){
+        Display d = new Display();
+        MyThread t1 = new MyThread("Dhoni",d);
+        MyThread t2 = new MyThread("Yuvraaj",d);
+        t1.start();
+        t2.start();
+    }
+}
+
+o/p 
+Good morning : dhoni
+Good morning : Yuvraaj
+
+------------------------------
+
+VIDEO - 7 ------
+
+CASE - 1)
+class SynchronizedDemo{
+    PSVM(String[] args){
+        Display d1 = new Display();
+        Display d2 = new Display();        
+        MyThread t1 = new MyThread("Dhoni",d1);
+        MyThread t2 = new MyThread("Yuvraaj",d2);
+        t1.start();
+        t2.start();
+    }
+}
+Irregular output: 
+two objects working on different space/object. 
+
+CASE - 2)
+class Display{
+    public static synchronized void wish(String name){
+        for(int i=0;i<10;i++){
+            Sout("Good Morning...!");
+            try{
+                Thread.sleep(1000);
+            }catch (IO exception){ }
+            Sout("name");
+        }
+    }
+}
+class SynchronizedDemo{
+    PSVM(String[] args){
+        Display d1 = new Display();
+        Display d2 = new Display();        
+        MyThread t1 = new MyThread("Dhoni",d1);
+        MyThread t2 = new MyThread("Yuvraaj",d2);
+        t1.start();
+        t2.start();
+    }
+}
+
+o/p:  Regular output 
+
+static synchronized : class level lock. 
+
+----------------------------
+Case - 3)  
+class X{
+    static synchronized m1();
+    static synchronized m2();
+    static m3();
+    synchronized m4();
+    m5();
+} 
+
+
+t1.m1() // class level lock
+t2.m1() // not get chance and enter into waiitng state
+t3.m2() // not get chance due to m1 class level lock 
+t4.m3() //
+t5.m5() // object level lock - it will run 
+t6.m5() // object level lock - it will run
+
+-------------------------------
+
+Video - 9 Synchronized Block 
+
+synchronized block - local scope
+synchronized method - global scope
+
+// lock on current object 
+synchronized(this){
+    // thread get lock on current object. then only allowed to execute this area.
+}
+
+// lock on particular object 
+synchronized(Object b){
+//    if a thread get lock of object b then only allowed to execute this area
+}
+
+
+// lock on class level
+synchronized(Display.class){
+    // class level lock , then only allowed
+}
+
+2 types of lock : in object level or class level ; 
+lock not applicable to primitive types
+
+race condition : multiple threads operating simultaneously on same java object then
+there is chance of data Inconsistency problem
+
+--------------------------
+
+VIDEO - 10 INTER-ThREAD communication :
+
+the thread which expect updating will call wait() method. 
+The thread which perform updation will perofrm notify() and notifyAll() method 
+
+Two threads can communicate with each other by wait(), notify() and notifyAll() method. 
+
+Q) why this method will present in object class not in thread class ? 
+3 methods present in object class but not in thread class bcoz thread can call this method 
+on any java objects . 
+
+To call wait() or notify() or notifyAll() methods on any object  
+thread should be owner of that object . 
+the thread should has lock of that object bcoz thread should be in synchronized area , hence 
+we can call 3 methods only from synchronized area otherwise we will get runtime exception  
+IllegalMonitorStateException. 
+
+If a thread call wait on any object it immedeiately release lock of the  
+particular object  and enter into waiting state . 
+
+If a thread calls notify method on any object it release lock of that object but may not immedeiately. 
+execpt wait , notify and notifyAll there is no other method where thread released the lock . 
+
+
+-------------------
+method : IS thread released lock ?
+
+yield() : No 
+
+join() : No 
+
+sleep() : No 
+
+wait() : Yes 
+
+notify() : Yes 
+
+notifyAll() : Yes 
+--------------------
+
+public final void wait() throws InterruptedException;
+public final native void wait(long ms) throws InterruptedException ;
+public final void wait(long ms, int ns)throws InterruptedException ;
+
+public final native void notify();
+public final native void notifyAll();
+
+Running to Waiting state :  
+obj.wait();
+obj.wait(1000);
+obj.wait(1000, 10);
+
+Waiting state to another waiting lock state :
+If thread get notify
+If time expires 
+If waiting thread got interrupted. 
+
+Waiting Lock State to Ready/runnalbe state 
+If waiting thread got lock 
+
+Video - 11 ----
+
+CODE 1)
+// sleep(1000);
+// join();
+
+class ThreadDemo{
+    PSDM(Stirng[] args){
+        ThreadB b = new ThreadB();
+        b.start();
+        b.wait();
+        sout(b.total);
+    }
+}
+
+class ThreadB extends Thread{
+    int total = 0;
+    public void run(){
+        for(i = 0 to 100){
+            total+=i; 
+        }
+        this.notify();
+    }
+}
+
+------------------------------
+
+CODE 2)
+
+class ThreadDemo{
+    PSDM(Stirng[] args){
+        ThreadB b = new ThreadB();
+        b.start();
+        synchronized(b){
+            System.out.println("1");
+            b.wait();
+            System.out.println("4");
+            sout(b.total);            
+        }
+    }
+}
+
+class ThreadB extends Thread{
+    int total = 0;
+    public void run(){
+        synchronized(this){
+            System.out.println("2")
+            for(i = 0 to 100){
+                total+=i; 
+            }
+            System.out.println("3")
+            this.notify();
+        }
+    }
+}
+
+------------------------------
+CODE 3)
+
+class ThreadDemo{
+    PSDM(Stirng[] args){
+        ThreadB b = new ThreadB();
+        b.start();
+        --- thread.sleep(10000);
+        synchronized(b){
+            System.out.println("1");
+            b.wait();
+            System.out.println("4");
+            sout(b.total);            
+        }
+    }
+}
+
+class ThreadB extends Thread{
+    int total = 0;
+    public void run(){
+        synchronized(this){
+            System.out.println("2")
+            for(i = 0 to 100){
+                total+=i; 
+            }
+            System.out.println("3")
+            this.notify();
+        }
+    }
+}
+
+now what happens forever main thread will wait for notify method while  
+he was sleeping
+o/p : 2,3 waiting forever.... 
+
+------------------------------
+CODE 4)
+
+class ThreadDemo{
+    PSDM(Stirng[] args){
+        ThreadB b = new ThreadB();
+        b.start();
+        --- thread.sleep(10000);
+        synchronized(b){
+        // --- thread.sleep(10000);
+            System.out.println("1");
+            b.wait();
+            System.out.println("4");
+            sout(b.total);            
+        }
+    }
+}
+
+class ThreadB extends Thread{
+    int total = 0;
+    public void run(){
+        synchronized(this){
+            System.out.println("2")
+            for(i = 0 to 100){
+                total+=i; 
+            }
+            System.out.println("3")
+            this.notify();
+        }
+    }
+}
+ o/p : 2,3,1,4
+
+--------------------------
+Producer and consumer problem
+
+class Producer{
+    synchronized(q){
+        // produce item to queue
+        q.notify();
+    }
+}
+
+class Consumer{
+    synchronized(q){
+        if(q is empty){
+            // produce item to queue
+            q.wait();
+        }    
+    }
+}
+
+IllegalMonitorStateException 
+when  
+synchronized(s2){
+    s1.wait();
+}
+
+-----
+True when 
+synchronized(s1){
+    s1.wait();
+}
+
+-----------------------------------
+
+VIDEO - 13 : DeadLock
+
+if two threads are waiting for each other .
+bcoz of synchronized keyword deadlock occurs. 
+
+Only prevention we can do . 
+
+Code for DeadLock : 
+
+Class A{
+    public synchronized void d1(B b){
+        Sout("thread 1 start executing d1 method");
+    try{
+        Thread.sleep(1000);
+    }catch(IE){ }
+        Sout("Thread 1 trying to call b.last");
+    }
+    public synchronized void last(){
+        Sout("Inside A, Last() methods");
+    }
+}
+
+Class B{
+    public synchronized void d1(A a){
+        Sout("thread 2 start executing d2 method");
+    try{
+        Thread.sleep(1000);
+    }catch(IE){ }
+        Sout("Thread 2 trying to call a.last");
+    }
+    public synchronized void last(){
+        Sout("Inside B, Last() methods");
+    }
+}
+
+class DeadLock extends Thread{
+    A a = new A();
+    B b = new B();
+    public void m1(){
+        this.start(); -- child thread start
+        a.d1(b); ---- main thread 
+    }
+    public void run(){
+        b.d2(a); ---- child thread 
+    }
+    PSVM(String[] args){
+        DeadLock d = new Deadlock();
+        d.m1();
+    }
+}
+
+long waiting of thread where waiting never ends - deadlock 
+long waiting of thread where waiting will ends - starvation
+
+Video - 14 - Daemon Thread : thread working in the background 
+
+garbage collector
+Attach Listener
+Signal dispatcher
+
+Main objective of daemon threads is to provide support for non-daemon thread. 
+
+if main thread runs with low memoey then JVM run garbage colletor - to get more free memory. 
+    now mian thread can continue its execution. 
+
+Daemon can run with high priority also  
+
+IsDaemon();
+setDaemon();
+
+setting of daemon can be possible before of starting of thread only. 
+
+main thread is always non- daemon thread 
+all remaining threads will be inhierted from parent.
+
+CODE : 
+class MyThread extends Thread{
+    public void run(){
+        for(int i=0;i<10;i++){
+            sout("Child Thread");
+            Thread.sleep(1000);
+        }
+    }
+}
+
+class DemonThreadDemo{
+    PSVM(Stirng[] args){
+        MyThread t = new MyThread();
+        t.setDaemon();
+        t.start();
+        sout("main thread");
+    }
+}
+
+O/P : once main thread get terminated - daemon thread will terminated. 
+
+-----------------------------------------
+VIDEO - 15 
+
+Green Thread : 
+
+multithreading will use Green thread model and native thread model  
+
+Green thread : without taking underlying os support ,  only with JVM - (Sun solaris)
+
+Native OS model : 
+
+
+
+How to stop a thread ? 
+t.stop() - depricated 
+
+How to suspend and resume of a thread ?
+public void suspend();
+public void resume();
+
+------------------------------------
+
+Video - 16 
+
+Enhancement multithreading :
+- Thread Group - group of thread based on functionality. 
+- SubThread Group - 
+
+The main advantage of maintained thread in the form of thread group is  
+we can perform common activity easily. 
+
+class Test{
+    PSVM(String[] args){
+        Sout(Thread.currentThread().getThreadGroup().getName());
+        // O/p : main
+
+        Sout(Thread.currentThread().getThreadGroup().getParent());
+        // O/P : system
+    }
+}
+
+- Every thread of java belongs to some ThreadGroup
+- Main thread belongs to main ThreadGroup
+- Every thread is child of system thread. 
+- System group contains system level thread. 
+
+System Group Thread --
+
+Finalizer
+Reference Variable 
+Signal dispatcher 
+Attach Listener
+Main Thread Group 
+
+
+constructor -- 
+
+1) ThreadGroup g = new ThreadGroup(String name);
+
+2) ThreadGroup g1 = new ThreadGroup(ThreadGroup g, String name);;
+
+-- Thread in the thread group which has higher priority will not be affected. 
+But the thread which has low priority will be setPriority()
+
+-- to copy all active of this thread group into the provide the thread array 
+in this sub-thread group will be consider 
+int Enumerator(Thread Group[] g);
+
+--------------------------------------
+
+VIDEO - 17 java.util.concurrent 
+
+synchronized problem : 
+performance issue,  it will wait forever for get unlock. 
+
+-- Failness policy is not present (longest waiting thread get chance) . 
+-- we do not have method to get which thread are in waiting state . 
+
+-- no way to maximum waiting thread to get lock so that thread will wait untill getting the lock which may create performance  
+which may cuase DeadLock. 
+
+-- we not have any control towards which waiting thread will get executed  
+-- synchronized can not work with multiple methods , it works either at method level or inside method.  
+it not work on across method . 
+
+
+To overcome above issue java.util.concurrent.locks package . 
+
+Lock()
+ReentrantLock()
+
+-- Lock Interface 
+ it is similar ti implicit lock qcquired by thread to execute synchronized methhod or block  
+ lock implementation provide more exetensive operation while traditional implicit lock  
+
+ methods 
+
+ void Lock();
+
+-- we can use this method to acquire lock if a lock is already available 
+ then immedeiately current thread will get lock . if lock is not available then  
+ it will untill get lock . it is exactly same behvaior of traditional synchronized keyword 
+
+boolean tryLock();
+
+-- to acquie the lock without waiting , if a lock is available general thread acquire the lock and returns true otherwise it returns false. 
+and continous execution without waiting thread never be end to waiting state . 
+
+if(l.tryLock()){
+    perform safe operation
+}else{
+    perform alternate operation 
+}
+
+
+boolean tryLock(Time.Unit.Hour);
+
+it will wait for some time and then continous execution. 
+
+-- to call this method compulsory current thread should be owner of that lock 
+other wise get exception IllegalMonitorStateException. 
+
+-------------------------------
+Video - 18 
+
+Lock(I)
+
+lock()
+tryLock()
+lockInterruptibly(time period)
+unlock()
+
+
+ReentrantLock() - it is the impleme class of lock interface and it is the fdirect child class of object 
+
+ReentrantLock l = new ReentrantLock();
+l.lock();
+l.lock();
+l.lock();
+
+hold count = 1;
+
+l.unlock();
+l.unlock();
+l.unlock();
+
+A thread can acquire same lock multiple time without any issue
+internal reentrant lock implements thread personal count whenever we call lock method
+and decrements count value whenever thread call unlock method and lock will relase when 
+counts reaches to 0l
+
+----------
+ReentrantLock l = new ReentrantLock(boolean fairness);  -- then longest waiting thread will get chances 
+
+default boolean value is false --
+
+
+---------------------------------
+ExecutorService - simplifies running tasks in asynchronous mode
+
+ExecutorService executor = Executors.newFixedThreadPool(10);
+create a thread pool with 10 threads:
+
+
+Constructor : 
+
+ExecutorService executorService = 
+  new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS,   
+  new LinkedBlockingQueue<Runnable>());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

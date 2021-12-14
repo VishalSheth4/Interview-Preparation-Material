@@ -1,0 +1,214 @@
+SLIDING WINDOW
+
+o/p : (arr,str) + (Subarray,SubStirng) + Frame Size k
+
+FIXED SIZE WINDOWS : 
+
+1) Maximum Sum Subarray of size K
+
+i/p :
+a[] = 2,5,1,8,2,9,1
+k =7
+
+int sum = 0;
+while(j<k){
+	sum = sum + a[i];
+	j++;
+}
+int i =0;
+int maxSum = sum;
+while(j < SizeofArray){
+	sum = sum + a[j] - a[i];
+	maxSum = Math.max(maxSum,sum);
+	i++;
+	j++;
+}
+
+2) First Negative Number in every Window of Size K
+Note : Print 0 when there is no -ve number in the window.
+
+i/p :
+a[] = 12,-1,-7,8,-15,30,16,28
+k = 3
+
+o/p : -1,-1,-7,-15,-15,0
+
+Approach : store the -ve number index in the queue.
+
+Queue<Integer> q ;
+List<Integer> l;
+int j=0;
+int i=0;
+
+while(j<k){
+	if(a[j]<0){
+	 q.add(j);
+	}
+	j++;
+}
+while(j < sizeOfArray){
+	if(q.size()==0){
+		l.add(0);
+	}else{
+		l.add(q.peek());
+	}
+
+	while((!q.isEmpty()) && q.peek() < j-k+1){
+		q.remove();
+	}
+	if(a[j]<0){
+		q.add(j);
+	}
+
+	i++;
+	j++;
+}
+
+3) Count Occurrences Of Anagrams
+i/p :
+s = forxxorfxaofr
+ptr = fox
+
+Anagram we can jumble "for" to rof, for, ofr;
+
+o/p :
+
+k = ptr.length();
+
+
+Another Approach : 
+static boolean araAnagram(String s1,
+                              String s2)
+    {
+        // converting strings to char arrays
+        char[] ch1 = s1.toCharArray();
+        char[] ch2 = s2.toCharArray();
+ 
+        // sorting both char arrays
+        Arrays.sort(ch1);
+        Arrays.sort(ch2);
+ 
+        // Check for equality of strings
+        if (Arrays.equals(ch1, ch2))
+            return true;
+        else
+            return false;
+    }
+
+
+4) Maximum of all subarrays of size k
+
+Deque<Integer> Qi = new LinkedList<Integer>();
+int j=0;
+while(j<k){
+	while(!Qi.isEmpty() && a[j]>=a[Qi.peekLast()]){
+		Qi.removeLast();
+	}
+	Qi.add(j);
+	j++:
+}
+while(j<sizeOfArray){
+	System.out.println(Qi.peek());
+
+	while(!Qi.isEmpty() && Qi.peek()<=j-k){
+		Qi.removeFirst();
+	}
+	while(!Qi.isEmpty() && a[j]>=a[Qi.peekLast()]){
+		Qi.removeLast();
+	}
+	Qi.add(j);
+	j++:
+}
+
+
+
+
+
+VARIABLE SIZE WINDOWS :
+
+1) Largest Subarray of sum K
+a[] = 4,1,1,1,2,3,5
+sum k = 5
+
+
+int sum = 0;
+int j=0;
+int maxWindowSize = 0;
+while(j<sizeOfArray){
+	sum = sum + a[j];
+	if(sum<k){
+		j++;
+	}else if(sum==k){
+	   maxWindowsize = Math.max(maxWindowSize,j-i+1);
+	   j++;
+	}else{
+		while(sum>k && i>j){
+			sum = sum - a[i];
+    		i++;
+	}
+}
+
+2) Longest Substring With K Unique Characters
+
+
+i/p: 
+s = aabacbebebe
+k = 3
+
+int i=0;
+int j=0;
+int maxWindowSize = 0;
+HashMap<Character,Integer> hmap;
+while(j < s.length()){
+	if(hmap.containsKey(s.charAt(j))){
+		hmap.put(s.charAt(j),hmap.getValue(s.charAt(j)+1));
+	}else{
+		hmap.put(s.charAt(j),1);
+	}
+	if(hmap.size()==k){
+		maxWindowSize = Math.max(maxWindowSize,hmap.size())
+	}
+	if(hmap.size()>k){
+		while(hmap.size()<=k){
+			if(hmap.containsKey(s.charAt(i))){
+				hmap.put(s.charAt(i),hmap.getValue(s.charAt(i)-1));
+			}else{
+				hmap.remove(s.charAt(i); // if its value is 1
+			}
+		}
+	}
+}
+
+
+3) Longest Substring With No Repeating Characters 
+
+// use hashmap If contains same key (condition)
+
+4) PICK TOYS 
+FACT : Pick toy in sequence order only
+FACT : Can pick only 2 toys as many as quantity he wants.
+
+Longest Substring With 2 Unique Character
+
+
+5) Minimum window substring.
+Good questions
+
+https://www.geeksforgeeks.org/find-the-smallest-window-in-a-string-containing-all-characters-of-another-string/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,19 @@
+HEAP 
+
+Application : 
+
+-- kth smallest - Max
+-- kth LArgest - Min
+-- Find the kth largest element in stream
+-- Find the median of running stream of integer
+-- Merge k sorted list
+
+-- Heapify operation( percolate up and percolate down)
+
+Array representation of heap
+-- left child : 2i+1
+-- right child : 2i+2
+
+Q) Print all the anagram together  --> Hashmap<String, ArrayList<String>>() + sort the each word Arrays.sort(ch[])
+
+Q) Find the first non-repeating character in the streams --> 

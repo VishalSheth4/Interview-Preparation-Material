@@ -1,0 +1,252 @@
+1. What is Symmetric Tree : A symmetric tree is defined as a tree which is mirror image of itself about the root node. For example, following tree is a symmetric tree.
+2. What is Linked List and How to detect and remove loop in a Linked List  
+3. Stream API : Introduced in Java 8, the Stream API is used to process collections of objects. A stream is a sequence of objects that supports various methods which can be pipelined to produce the desired result. ... Streams don't change the original data structure, they only provide the result as per the pipelined methods
+4. Use of ExecutorService : The Java ExecutorService is the interface which allows us to execute tasks on threads asynchronously. The Java ExecutorService interface is present in the java.util.concurrent package. The ExecutorService helps in maintaining a pool of threads and assigns them tasks. It also provides the facility to queue up tasks until there is a free thread available if the number of tasks is more than the threads available.
+5. Functional Interface
+6. Compare & Comparable 
+7. Lumda Function
+
+1) executor service
+2)program to find the index of number who's sum of left side is equal to right side
+3) application of thread in project
+4) height of binary tree program
+5)detect cycle in linkedlist and undirected graph
+6) implement heap from stack
+7)lambda expression
+8)write a program to check whether number  rotated 360 degree is same as the number
+9) countdown latch
+10) scenario to create a ludo game application
+
+Q1)WAP to display  City and temprature in decending order of max temprature and if duplicate record present choose the max temprature record.
+sample input:
+Temprature.txt
+
+Date,CityName,Min_Temprature, Max_Temprature
+2020-01-01,Delhi,4,21
+2020-01-01,Mumbai,4,23
+2020-01-01,Delhi,4,25
+2020-01-01,Mumbai,4,20
+2020-01-01,Nashik,4,59
+2020-01-01,Nashik,4,48
+2020-01-01,Pune,4,30
+
+Output:
+date=2020-01-01, city=Nashik, minTemp=4, maxTemp=59
+date=2020-01-01, city=Pune, minTemp=4, maxTemp=30
+date=2020-01-01, city=Delhi, minTemp=4, maxTemp=25
+date=2020-01-01, city=Mumbai, minTemp=4, maxTemp=23
+
+Programe: below programe not a feasible sollution. Interviewer interested in sollution with groupingBy in java 8 
+ANS:
+public class Test8 {
+
+	
+	public static void main(String[] args) throws IOException {
+
+		Map<String , Temprature>  tempMap= new HashMap<>();
+		File f = new File("src//temprature.txt");
+		BufferedReader br = new BufferedReader(new FileReader(f));
+		String line;
+		while((line =br.readLine()) !=null){
+			String[] records =  line.split(",");
+			Temprature t = new Temprature(records[0],records[1], Integer.valueOf(records[2]),  Integer.valueOf(records[3]));
+			if(tempMap.containsKey(records[1])){
+				if(tempMap.get((records[1])).getMaxTemp() < Integer.valueOf(records[3])){
+					tempMap.put(records[1], t);
+			}
+			}
+			else{
+				tempMap.put(records[1], t);
+			}
+		
+		}
+		tempMap.entrySet().stream().sorted((t1,t2)-> t1.getValue().getMaxTemp() > t2.getValue().getMaxTemp() ? -1: 1).forEach(System.out::println);
+	}
+
+}
+
+class Temprature {
+	String date;
+	String city;
+	int minTemp;
+	int maxTemp;
+	
+	public Temprature(String date, String city, int minTemp, int maxTemp) {
+		super();
+		this.date = date;
+		this.city = city;
+		this.minTemp = minTemp;
+		this.maxTemp = maxTemp;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public int getMinTemp() {
+		return minTemp;
+	}
+	public void setMinTemp(int minTemp) {
+		this.minTemp = minTemp;
+	}
+	public int getMaxTemp() {
+		return maxTemp;
+	}
+	public void setMaxTemp(int maxTemp) {
+		this.maxTemp = maxTemp;
+	}
+	@Override
+	public String toString() {
+		return "Temprature [date=" + date + ", city=" + city + ", minTemp=" + minTemp + ", maxTemp=" + maxTemp + "]";
+	}
+	
+	
+}
+
+Q2:WAP to find first non repeating character from String and print it if no non repeating character present then print null or some acknowledgement.
+sample input: aabbssggfjjkmf
+Output: k
+
+public class Test7 {
+
+ANS:	
+public static void main(String args[]){
+	
+	Set<Character> chars = new HashSet<>();
+	List<Character> nonRepeating = new ArrayList<>();
+	String pattern = "aabbssggfjjkmf";
+	for(int i=0; i < pattern.length();i++  ){
+		if(chars.contains(pattern.charAt(i))){
+			nonRepeating.remove((Object)pattern.charAt(i));
+		}else{
+			chars.add(pattern.charAt(i));
+			nonRepeating.add(pattern.charAt(i));
+		}
+	}
+	if(nonRepeating.size() > 0){
+		System.out.println("first non repeated element would be ="+nonRepeating.get(0));
+	}else{
+		System.out.println("non repeating element not found");
+	}
+}
+}
+
+Q3:WAP to print stock with max quantity if duplicate stock present combine the quantity to find the max quantity stock
+sample input: 
+IBM,100
+Accenture,200
+Microsoft,250
+IBM,200
+
+OutPut:
+IBM,300
+
+ANS:
+public class Test9 {
+
+	public static void main(String[] args) {
+		
+		
+		Stock ss1 = new Stock("IBM", 100);
+		Stock ss2 = new Stock("Accenture", 200);
+		Stock ss3 = new Stock("Microsoft", 250);
+		Stock ss4 = new Stock("IBM", 200);
+		
+		List<Stock> stocks = new ArrayList<>();
+		stocks.add(ss1);
+		stocks.add(ss2);
+		stocks.add(ss3);
+		stocks.add(ss4);
+		
+		Map<String, Integer> map =stocks.stream().collect(Collectors.groupingBy(Stock::getStockName, Collectors.summingInt(Stock::getQuantity)));
+		Entry<String, Integer>	finalEntry= map.entrySet().stream().max((e1,e2)-> e1.getValue() > e2.getValue() ? 1:-1).get();
+		System.out.println(finalEntry);
+	}
+
+}
+
+class Stock{
+	
+	String stockName;
+	int quantity;
+	public String getStockName() {
+		return stockName;
+	}
+	
+	public Stock(String stockName, int quantity) {
+		super();
+		this.stockName = stockName;
+		this.quantity = quantity;
+	}
+
+	public void setStockName(String stockName) {
+		this.stockName = stockName;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+}
+
+Q4: WAP to print all combination number present in given array whos addition is 7.
+Sample Input:3,0,5,2,4,7,9
+
+Output:
+3,4
+0,7
+5,2
+
+ANS: below program has Time complexcity O(n^2) which not the feasible solution. interviewer more interested in more feasible solution.
+
+public class Test10 {
+
+	public static void main(String[] args) {
+
+		int[] arr ={3,0,5,2,4,7,9} ;
+		
+		for(int i=0;i < arr.length;i++){
+			
+			for(int j=i+1 ; j <arr.length;j++){
+				if(arr[i] + arr[j] == 7){
+					System.out.println("NO 1 = "+ arr[i] + " No 2 = " +arr[j]);
+				}
+			}
+		}
+		
+	}
+
+}
+
+Q5: WAP to print multiplication of other number in array without including the indexed number for all indexed.
+Sample input: 1,2,3,4
+sample output: 24,12,8,6  
+
+Solution : if you choos index 0 (i.e. 1) then other numbers are (2,3,4) and multiplication is 24 similarly for index 1 (i.e. 2) then other numbers are (1,3,4) and multiplication is 12 and so on.
+
+Program:
+public class Test11 {
+ 
+	
+ public static void main(String args[]){
+	 
+	 int[] arr = {1,2,3,4};
+	 
+	 int multValue = 1;
+	 for(int i=0;i<arr.length;i++){
+		 multValue= arr[i] * multValue;
+	 }
+	 for(int i=0;i<arr.length;i++)
+	 System.out.println(multValue/arr[i]);
+	 
+ }
+}
