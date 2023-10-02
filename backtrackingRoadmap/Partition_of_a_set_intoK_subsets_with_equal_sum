@@ -1,0 +1,71 @@
+
+//  Partition of a set intoK subsets with equal sum
+
+import java.util.*;
+public class Main
+{
+    public static void solution(int a[],int index,int length,int kPartition, int subsetSum[],int currentPartitionSize,ArrayList<ArrayList<Integer>> ans){
+        if(index == a.length){
+            if(currentPartitionSize == kPartition){
+                boolean flag = true;
+                for(int i=0;i<subsetSum.length-1;i++){
+                    if(subsetSum[i] != subsetSum[i+1]){
+                        flag = false;
+                        break;
+                    }
+                }
+                if(flag == true){
+                    for (ArrayList<Integer> parition : ans){
+                        System.out.println(parition + "");
+                    }
+                    System.out.println();
+                }
+            }
+            return;
+        }        
+        for(int i=0;i<ans.size();i++){
+            if(ans.get(i).size()>0){
+                ans.get(i).add(a[index]);
+                subsetSum[i] += a[index];
+                solution(a,index+1,length,kPartition,subsetSum,currentPartitionSize,ans);
+                subsetSum[i] -= a[index];
+                ans.get(i).remove(ans.get(i).size()-1);
+            }else{
+                ans.get(i).add(a[index]);
+                subsetSum[i] += a[index];
+                solution(a,index+1,length,kPartition,subsetSum,currentPartitionSize+1,ans);
+                subsetSum[i] -= a[index];
+                ans.get(i).remove(ans.get(i).size()-1);
+                break;
+            }
+        }
+    }
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+// 		int a[] = {5,2,1,2,3,4,3};
+        int a[] = {1,2,3,4,5,6};
+		int n = a.length;
+// 		int kPartition = 4;
+        int kPartition = 3;
+		int sum = 0;
+		// Corner Cases - 
+		if(kPartition==1){ 
+		    for(int asize : a){
+		        System.out.println(asize);
+		    }
+		}
+		for(int i=0;i<a.length;i++){
+		    sum+=a[i];
+		}
+		if(kPartition > n || sum % kPartition !=0){
+		    System.out.println("-1");
+		    return;
+		}
+		int[] subsetSum = new int[kPartition];
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+		for(int i=0;i<kPartition;i++){
+		    ans.add(new ArrayList<>());
+		}
+		solution(a,0,n,kPartition,subsetSum,0,ans);
+	}
+}
