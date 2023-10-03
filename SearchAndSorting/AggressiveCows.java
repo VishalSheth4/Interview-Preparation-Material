@@ -1,4 +1,4 @@
-public class Main
+public class AggressiveCows
 {
     static boolean isPossible(int stall[],int gap,int cows){
         int pre=stall[0],c=1;

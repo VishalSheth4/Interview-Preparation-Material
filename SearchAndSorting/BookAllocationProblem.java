@@ -6,7 +6,7 @@ Write your code in this editor and press "Run" button to execute it.
 
 *******************************************************************************/
 
-public class Main
+public class BookAllocationProblem
 {
     static boolean isPossible(int book[], int books, int students,int mid){
         int studentsRequired = 1;
