@@ -1,9 +1,0 @@
-REQUIREMENTS : 
-
-Multiple Floor
-Multiple gates
-parking attendant at each gate.
-Entry gates should process parking ticket.
-Exit gate should process payment on an hourly basis.
-Parking lot should have parking facility for different type of vehicle.
-Display board at each floor showing the detail vacant sports on the floor.
