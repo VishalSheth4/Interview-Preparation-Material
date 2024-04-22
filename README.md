@@ -9,3 +9,11 @@
 # New Journey Started 22-04-2023
 #
 # Move On Move On :)
+
+
+
+| Header | Link | Gist |
+|----------|----------|----------|
+| Algorithms You Should Know Before System Design Interviews   | https://www.youtube.com/watch?v=xbgzl2maQUU   | Consistent Hashing, GeoHash, Quadtree, LeakyBucket, ToekBucket, Trie, Bloom Filter, Raft/Paxos    |
+| Cell 4   | Cell 5   | Cell 6   |
+
