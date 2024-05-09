@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="CacheSystem/src"/>
+	<classpathentry kind="src" path="chess"/>
+	<classpathentry kind="src" path="libraryLLD"/>
+	<classpathentry excluding="src/" kind="src" path="ParkingLot"/>
+	<classpathentry kind="src" path="ParkingLot/src"/>
+	<classpathentry kind="src" path="tictactoe"/>
+	<classpathentry kind="output" path="CacheSystem/bin"/>
+</classpath>
