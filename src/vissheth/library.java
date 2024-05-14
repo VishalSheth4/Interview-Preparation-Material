@@ -167,7 +167,7 @@ enum loanStatus{
 
 // cannot loan more than 6 books;
 
-public class Solution {
+public class library {
 	private static Library library = Library.getInstnace();
 	// searchMember utility
 	public Optional<Member> searchMember(String nm){
