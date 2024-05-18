@@ -16,10 +16,9 @@ public class App
 //    	projConfig.projectConfiguration(s);
     	    	
     	// 2) ------ Image Address ---------
-    	String path="";
-    	FileInputStream fis = new FileInputStream(path);
-    	byte[] data = new byte[fis.available()];
-    	
+//    	String path="";
+//    	FileInputStream fis = new FileInputStream(path);
+//    	byte[] data = new byte[fis.available()];
     	
     	Address ad = new Address();
     	ad.setStreet("street1");
@@ -27,11 +26,13 @@ public class App
     	ad.setOpen(true);
     	ad.setAddedDate(new Date());
     	ad.setX(1234.234);
-    	ad.setImage(data);
-    	
-    	projConfig.saveObject(ad);
+//    	ad.setImage(data);
+//    	projConfig.saveObject(ad);
 
+    	// 3) ----------- get Student Object -------------
+    	projConfig.getStudentObject();
     	
+    	projConfig.getAddressObject();
     	
 
 

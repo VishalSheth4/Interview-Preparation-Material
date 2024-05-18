@@ -57,4 +57,26 @@ public class ProjectConfig {
     	session.getTransaction().commit();
     	session.close();       
 	}
+	
+	public Object getStudentObject() {
+		Session session = getConfiguration();
+		Student stu = session.get(Student.class, 101);
+		System.out.println(stu);
+		return null;
+	}
+	
+	public Object getAddressObject() {
+		Session session = getConfiguration();
+		Address stu = session.get(Address.class, 2);
+		System.out.println(stu);
+		return null;
+	}
+	
+	public Object loadStudentObject() {
+		Session session = getConfiguration();
+		Student stu = session.load(Student.class, 101);
+		// load will hit db only when any operation will be done on fetch object.
+		System.out.println(stu);
+		return null;
+	}
 }
