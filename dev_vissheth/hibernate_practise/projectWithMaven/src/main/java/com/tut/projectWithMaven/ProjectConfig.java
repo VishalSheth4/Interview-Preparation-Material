@@ -17,7 +17,7 @@ public class ProjectConfig {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void projectConfiguration(Object obj) {
+	public Session getConfiguration() {
 		SessionFactory sessionFactory=null;
 		try {
 	        Configuration configuration = new Configuration();
@@ -45,9 +45,14 @@ public class ProjectConfig {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
-//		return sessionFactory;        
 		Session session = sessionFactory.openSession();
 		session.beginTransaction();
+
+		return session;
+		
+	}
+	public void saveObject(Object obj) {
+		Session session = getConfiguration();
 		session.save(obj);
     	session.getTransaction().commit();
     	session.close();       

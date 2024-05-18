@@ -29,7 +29,7 @@ public class App
     	ad.setX(1234.234);
     	ad.setImage(data);
     	
-    	projConfig.projectConfiguration(ad);
+    	projConfig.saveObject(ad);
 
     	
     	
