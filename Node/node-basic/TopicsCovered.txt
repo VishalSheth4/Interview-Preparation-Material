@@ -1,0 +1,11 @@
+what is node.js
+javaScript in browser env..
+javaScript in node.js env..
+writing functions
+import and export functions
+using Arrow functions
+
+
+Object destructuring
+node js core modules
+using npm packages  (npm init)
