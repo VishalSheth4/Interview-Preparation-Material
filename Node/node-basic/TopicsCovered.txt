@@ -8,4 +8,8 @@ using Arrow functions
 
 Object destructuring
 node js core modules
-using npm packages  (npm init)
+using npm packages 
+To create package.json --> (npm init)
+
+To install nodemon --> npm i nodemon
+To install express --> npm i express
