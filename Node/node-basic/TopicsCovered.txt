@@ -13,3 +13,6 @@ To create package.json --> (npm init)
 
 To install nodemon --> npm i nodemon
 To install express --> npm i express
+
+
+node.js event loop
