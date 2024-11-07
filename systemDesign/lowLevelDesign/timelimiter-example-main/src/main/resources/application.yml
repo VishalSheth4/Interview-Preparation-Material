@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: activity-service
+
+
+resilience4j:
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 2s
+        cancelRunningFuture: true
+    instances:
+      activity:
+        baseConfig: default
