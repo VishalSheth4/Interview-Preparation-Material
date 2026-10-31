@@ -75,3 +75,122 @@ A short demo GIF
 One caution: don’t add the bullets to your resume until the repos exist and the numbers are real. Interviewers will open the repo and ask about trade-offs.
 
 Tell me which one you’d like to start with, and I can draft the architecture, repo structure, and a week-by-week build plan.
+
+Project 4: Durable Agent Workflow Engine
+
+Problem: Agents fail midway (timeouts, crashes, rate limits), and most demos just restart from scratch. Production agents need checkpointing and safe resumption.
+
+How it works:
+
+Model an agent run as a state machine with persisted steps (Postgres or Kafka-backed event log).
+Each tool call is idempotent, with a deduplication key, so retries never repeat side effects.
+Support pause, resume, replay, and human approval steps.
+Use saga-style compensation for actions that need to be undone.
+
+Stack: Java 21, Spring Boot, Kafka, Postgres. Optionally compare against Temporal.
+
+Showcase: crash-recovery tests (kill the process mid-run and verify it resumes correctly), plus a short write-up on exactly-once vs effectively-once.
+
+Resume bullet:
+
+Built a durable execution engine for LLM agents with event-sourced state, idempotent tool calls, and replay/resume; validated with fault-injection tests that kill workers mid-run with zero duplicate side effects.
+
+Project 5: LLM Gateway (Routing, Cost, and Safety Layer)
+
+Problem: Once several teams use LLMs, you need one place for rate limits, cost control, fallbacks, and PII protection. This is a classic platform-engineering project.
+
+How it works:
+
+A proxy service in front of multiple model providers.
+Features: per-team budgets and quotas, model routing by task complexity, semantic caching, automatic failover, PII/secret redaction, and prompt/response logging with retention rules.
+Circuit breakers and bulkheads (you already know Resilience4j).
+
+Stack: Java/Spring Boot (or Go), Redis, Kafka for usage events, Grafana for cost dashboards.
+
+Showcase: a benchmark showing cost savings from routing and caching, and latency overhead of the gateway itself.
+
+Resume bullet:
+
+Designed an LLM gateway providing per-team quotas, model routing, semantic caching, provider failover, and PII redaction; reduced token spend by [X]% in benchmark workloads with [Y] ms added latency.
+
+Project 6: Agentic Text-to-SQL Analyst with a Semantic Layer
+
+Problem: Naive text-to-SQL hallucinates joins and metrics. A governed version defines metrics once and lets the agent compose from them.
+
+How it works:
+
+Define a semantic layer (metrics, dimensions, allowed joins) in YAML.
+The agent plans a query against the semantic layer, generates SQL, validates it (static checks, cost estimate via EXPLAIN), runs it read-only, then explains the result with the query shown.
+A self-correction loop with a retry cap.
+
+Stack: Python or Java, DuckDB/Snowflake, a public financial dataset (e.g., synthetic portfolio or public market data).
+
+Showcase: accuracy on a benchmark of 50-100 questions, compared against naive text-to-SQL, with the error categories analyzed.
+
+Resume bullet:
+
+Built a semantic-layer-driven text-to-SQL agent with query validation, cost guards, and self-correction; improved answer accuracy from [A]% to [B]% versus a naive baseline on a [N]-question benchmark.
+
+Project 7: Agentic Migration Validator and Schema Mapper
+
+Problem: This maps directly to your 90+ TB migration experience, which makes it your most authentic story.
+
+How it works:
+
+Given a source and target schema, an agent proposes column mappings and transformations, flags type and semantic mismatches, and generates reconciliation SQL (row counts, checksums, aggregate comparisons).
+It runs the checks, summarizes discrepancies, and proposes fixes for human review.
+Includes drift detection after cutover.
+
+Stack: Python or Java, Postgres to DuckDB (as a stand-in for on-prem to cloud), Spark optional.
+
+Showcase: inject known defects into a synthetic dataset and measure detection rate and false positives.
+
+Resume bullet:
+
+Built an agent-assisted migration validation tool that proposes schema mappings and generates reconciliation checks; detected [X]% of injected data defects with [Y]% false positives on a synthetic benchmark.
+
+Project 8: Agent Security Red-Team Suite
+
+Problem: Prompt injection and tool abuse are the biggest unsolved production risks, and very few candidates show they understand them.
+
+How it works:
+
+A library of attack cases: indirect prompt injection via documents and tool outputs, data exfiltration attempts, privilege escalation through tool chaining, and jailbreaks.
+Runs automatically against your agents from Projects 1, 2, and 6 and reports attack success rate.
+Document the mitigations you tried (input/output filtering, tool allowlists, privilege separation, confirmation steps) and their measured effect.
+
+Resume bullet:
+
+Built an automated red-team suite for tool-using agents covering prompt injection, exfiltration, and privilege escalation; reduced attack success rate from [A]% to [B]% through layered mitigations.
+
+Project 9: Agentic Code Modernization Assistant
+
+Problem: Large codebases need migrations like Java version upgrades, build tool changes (your Ivy to Gradle work), and dependency bumps.
+
+How it works:
+
+An agent that analyzes a repo, plans the upgrade, applies changes in small commits, runs the build and tests in a sandbox container, and iterates on failures.
+It stops and asks for review when tests fail repeatedly, and opens a PR with a summary.
+
+Showcase: run it on 5-10 real open-source Java repos and report the success rate, average time, and failure categories.
+
+Resume bullet:
+
+Built a sandboxed agent that automates Java/Gradle upgrades with test-driven iteration; successfully migrated [X] of [N] open-source repositories with no manual edits.
+
+Which ones signal “Staff” most
+Project	Staff signal	Effort
+Durable workflow engine	Very high (distributed systems depth)	High
+LLM gateway	Very high (platform thinking)	Medium
+Red-team suite	High (rare, security judgment)	Medium
+Text-to-SQL with semantic layer	High	Medium
+Migration validator	High (authentic to your story)	Medium
+Code modernization agent	Medium-high	High
+My recommendation
+
+Don’t build all nine. A strong portfolio is 3 to 4 projects that connect:
+
+Secure MCP server (earlier suggestion): the governed tool layer
+Agentic triage or text-to-SQL agent: the agent that uses it
+Eval harness (earlier suggestion) plus red-team suite: the measurement and security story
+Optionally, the LLM gateway or durable workflow engine to show platform depth
