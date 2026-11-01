@@ -194,3 +194,45 @@ Secure MCP server (earlier suggestion): the governed tool layer
 Agentic triage or text-to-SQL agent: the agent that uses it
 Eval harness (earlier suggestion) plus red-team suite: the measurement and security story
 Optionally, the LLM gateway or durable workflow engine to show platform depth
+
+#######
+
+Backend + AI Projects That Will Make You Stand Out in 2026
+
+The future of backend development is AI-powered. Build real-world projects that combine scalable backend architecture with LLMs, RAG, and AI agents.
+
+𝐋𝐋𝐌 & 𝐑𝐀𝐆 𝐒𝐲𝐬𝐭𝐞𝐦𝐬
+
+1)LLM Gateway – Route requests across OpenAI, Anthropic, Gemini, Grok, and local models with retries, caching, and rate limiting.
+
+2)Production RAG Pipeline – Build document ingestion, chunking, embeddings, vector search, and citation generation.
+
+3)Hybrid Search Engine – Combine BM25 + Vector Search + Re-ranking for better retrieval accuracy.
+
+4)Multi-Agent Research System – Planner, Researcher, Writer, and Reviewer agents working together.
+
+5)Knowledge Base API – Upload PDFs, DOCX, and web pages with automatic indexing and semantic search.
+
+𝐀𝐈 𝐈𝐧𝐟𝐫𝐚𝐬𝐭𝐫𝐮𝐜𝐭𝐮𝐫𝐞
+
+6) Prompt Management Service – Version prompts, run A/B tests, and track prompt performance.
+
+7) Model Observability Platform – Monitor latency, token usage, hallucinations, and response quality.
+
+8)Embedding Service – Centralized embedding generation with Redis caching and batch processing.
+
+9)Model Observability Platform – Monitor latency, token usage, hallucinations, and response quality.
+
+10) Embedding Service – Centralized embedding generation with Redis caching and batch processing.
+
+𝐀𝐈 𝐀𝐠𝐞𝐧𝐭𝐬
+
+11)Autonomous Coding Agent – Clone repositories, generate code, execute tests, and create pull requests.
+
+12)Code Review Agent – Analyze PRs for bugs, security vulnerabilities, and performance issues.
+
+13)Customer Support Agent – RAG-powered assistant integrated with internal documentation.
+
+14)Meeting Intelligence Agent – Transcribe meetings, summarize discussions, and generate action items.
+
+15)Workflow Automation Agent – Connect GitHub, Slack, Jira, Notion, and email to automate engineering workflows.
